@@ -57,6 +57,46 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
         }));
     };
 
+    const [uploading, setUploading] = useState(false);
+
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploading(true);
+        try {
+            // 1. Get presigned URL
+            const res = await fetch("/api/upload", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    filename: file.name,
+                    contentType: file.type
+                })
+            });
+
+            if (!res.ok) throw new Error("Failed to get upload URL");
+            const { uploadUrl, publicUrl } = await res.json();
+
+            // 2. Upload to R2
+            const uploadRes = await fetch(uploadUrl, {
+                method: "PUT",
+                headers: { "Content-Type": file.type },
+                body: file
+            });
+
+            if (!uploadRes.ok) throw new Error("Failed to upload file");
+
+            // 3. Update form
+            setFormData(prev => ({ ...prev, images: [publicUrl] }));
+        } catch (err) {
+            console.error(err);
+            setError("Image upload failed");
+        } finally {
+            setUploading(false);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -191,12 +231,26 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium mb-1">Image URL</label>
+                        <label className="block text-sm font-medium mb-1">Product Image</label>
+                        <div className="flex gap-4 items-center">
+                            {formData.images[0] && (
+                                <img src={formData.images[0]} alt="Preview" className="w-16 h-16 object-cover rounded border" />
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red/10 file:text-brand-red hover:file:bg-brand-red/20"
+                                disabled={uploading}
+                            />
+                            {uploading && <span className="text-xs text-neutral-500">Uploading...</span>}
+                        </div>
+                        {/* Fallback URL input */}
                         <input
                             value={formData.images[0] || ""}
                             onChange={e => setFormData(p => ({ ...p, images: [e.target.value] }))}
-                            className="w-full border rounded p-2"
-                            placeholder="https://..."
+                            className="w-full border rounded p-2 mt-2 text-xs text-neutral-400"
+                            placeholder="Or enter image URL directly"
                         />
                     </div>
 

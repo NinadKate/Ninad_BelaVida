@@ -1,6 +1,6 @@
 import { db } from ".";
 import { categories, products } from "./schema";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 export type LocalizedString = Record<string, string>;
 
@@ -29,5 +29,16 @@ export async function getProductBySlug(slug: string) {
 export async function getAllCategories() {
     return await db.query.categories.findMany({
         where: eq(categories.active, true),
+    });
+}
+
+export async function getFeaturedProducts(limit = 4) {
+    return await db.query.products.findMany({
+        where: eq(products.active, true),
+        orderBy: [desc(products.created_at)],
+        limit: limit,
+        with: {
+            category: true
+        }
     });
 }

@@ -3,10 +3,12 @@ import { db } from "@/lib/db";
 import { orders, orderItems } from "@/lib/db/schema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { sendOrderNotification } from "@/lib/email";
+import { AuthOptions } from "next-auth";
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await getServerSession(authOptions as AuthOptions);
         const body = await req.json();
         const { items, shippingInfo, total, locale } = body;
 
@@ -37,7 +39,8 @@ export async function POST(req: Request) {
             });
         }
 
-        // TODO: Send email notification to admin using Resend
+        // Send email notification to admin
+        await sendOrderNotification(newOrder.id, total, "CLP", shippingInfo);
 
         return NextResponse.json({ success: true, orderId: newOrder.id });
     } catch (error) {

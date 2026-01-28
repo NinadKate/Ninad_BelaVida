@@ -4,9 +4,10 @@ import { products } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import { AuthOptions } from "next-auth";
 
 async function checkAdmin() {
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as AuthOptions);
     // In a real app, verify role against DB again or trust session if strategy includes role
     if (!session || session.user?.email !== "admin@bellavida.cl") {
         return false;

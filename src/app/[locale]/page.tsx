@@ -2,36 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
 import { useTranslations } from 'next-intl';
+import { getFeaturedProducts, getProductsByCategory, getAllCategories } from "@/lib/db/queries";
+import { getLocalized, formatCurrency } from "@/lib/utils";
 
-export default function Home() {
-  const t = useTranslations('Hero');
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await useTranslations('Hero');
+  const featuredProducts = await getFeaturedProducts(4);
+  const categories = await getAllCategories();
 
-  const featuredProducts = [
-    {
-      name: "Protector Solar Fusion Water MAGIC SPF 50",
-      category: "Solar",
-      price: "$24.990",
-      imageUrl: "/hero-skincare.png",
-    },
-    {
-      name: "Hyaluronic Concentrate Serum",
-      category: "Facial",
-      price: "$32.490",
-      imageUrl: "/hero-skincare.png",
-    },
-    {
-      name: "UreaRepair PLUS Loción 10%",
-      category: "Corporal",
-      price: "$18.990",
-      imageUrl: "/hero-skincare.png",
-    },
-    {
-      name: "Retinal Intense Serum de Noche",
-      category: "Facial",
-      price: "$45.990",
-      imageUrl: "/hero-skincare.png",
-    },
-  ];
+  // Simple hardcoded mapping for category lines, or just use categories from DB
+  const recommendedLines = categories.slice(0, 4);
 
   return (
     <div className="w-full">
@@ -66,10 +47,10 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          
+
           <div className="hidden md:block relative h-[600px] animate-in fade-in zoom-in duration-1000">
             <Image
-              src="/hero-skincare.png"
+              src="/hero-skincare.png" // This should ideally be a dynamic hero image
               alt="BELLA VIDA Premium Skincare"
               fill
               className="object-contain"
@@ -95,12 +76,15 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {["Solar", "Facial", "Corporal", "Urea"].map((line) => (
-            <Link key={line} href={`/shop/${line.toLowerCase()}`} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft">
+          {recommendedLines.map((cat) => (
+            <Link key={cat.id} href={`/products/${cat.slug}`} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft">
               <div className="absolute inset-0 bg-neutral-dark/0 group-hover:bg-neutral-dark/10 transition-colors z-10" />
+              {/* If category has image use it, else placeholder color or pattern */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
+
               <div className="absolute bottom-6 left-6 z-20">
-                <h3 className="text-xl font-bold text-neutral-dark group-hover:text-brand-red transition-colors">{line}</h3>
-                <span className="text-sm text-neutral-500 opacity-0 group-hover:opacity-100 transition-opacity">Explorar &rarr;</span>
+                <h3 className="text-xl font-bold text-white group-hover:text-brand-red transition-colors">{getLocalized(cat.name, locale)}</h3>
+                <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">Explorar &rarr;</span>
               </div>
             </Link>
           ))}
@@ -117,7 +101,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map((product) => (
-              <ProductCard key={product.name} {...product} />
+              <Link key={product.id} href={`/products/${(product as any).category.slug}/${product.slug}`}>
+                {/* Reuse ProductCard but need to map properties correctly */}
+                <ProductCard
+                  name={getLocalized(product.name, locale)}
+                  category={getLocalized((product as any).category.name, locale)}
+                  price={formatCurrency(product.price, "CLP", locale)}
+                  imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
+                />
+              </Link>
             ))}
           </div>
         </div>

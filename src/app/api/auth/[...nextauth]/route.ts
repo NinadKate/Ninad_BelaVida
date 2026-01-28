@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { AuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { db } from "@/lib/db"
@@ -25,7 +25,10 @@ export const authOptions = {
 
                 // In real app, check password hash. For now, if user exists, return it.
                 if (user) {
-                    return user
+                    return {
+                        ...user,
+                        role: user.role as "user" | "admin"
+                    }
                 }
                 return null
             }
@@ -39,6 +42,6 @@ export const authOptions = {
     }
 }
 
-const handler = NextAuth(authOptions)
+const handler = NextAuth(authOptions as AuthOptions)
 
 export { handler as GET, handler as POST }

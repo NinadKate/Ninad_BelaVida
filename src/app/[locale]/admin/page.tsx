@@ -6,11 +6,12 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "@/i18n/routing";
 import { formatCurrency } from "@/lib/utils";
 import AdminProducts from "@/components/admin/AdminProducts";
+import { AuthOptions } from "next-auth";
 
 export default async function AdminDashboard({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ tab?: string }> }) {
     const { locale } = await params;
     const { tab } = await searchParams;
-    const session = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions as AuthOptions);
 
     if (!session || session.user?.email !== "admin@bellavida.cl") {
         const user = session?.user?.email
@@ -79,8 +80,8 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                                         </td>
                                         <td className="p-4">
                                             <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                                                    order.status === 'completed' ? 'bg-green-100 text-green-700' :
-                                                        'bg-neutral-200 text-neutral-600'
+                                                order.status === 'completed' ? 'bg-green-100 text-green-700' :
+                                                    'bg-neutral-200 text-neutral-600'
                                                 }`}>
                                                 {order.status}
                                             </span>
