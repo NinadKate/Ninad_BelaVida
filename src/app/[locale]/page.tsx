@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { getFeaturedProducts, getProductsByCategory, getAllCategories } from "@/lib/db/queries";
 import { getLocalized, formatCurrency } from "@/lib/utils";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await useTranslations('Hero');
+  const t = await getTranslations({ locale, namespace: 'Hero' });
   const featuredProducts = await getFeaturedProducts(4);
   const categories = await getAllCategories();
 
