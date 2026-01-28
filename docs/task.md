@@ -7,9 +7,9 @@
 - [x] Setup NextAuth.js (Auth.js) infrastructure (Dependencies installed)
 - [x] Setup base layout and directory structure
 
-## 2. Catalog Data Extraction [NEW]
-- [ ] Extract sample products and categories from [prd](file:///home/yashp/projects/bellavida/prd) PDFs
-- [ ] Create a seed script to populate the database with initial catalog data
+## 2. Catalog Data Extraction [x]
+- [x] Extract sample products and categories from [prd](file:///home/yashp/projects/bellavida/prd) PDFs
+- [x] Create a seed script to populate the database with initial catalog data
 
 ## 3. Design System & Base UI [/]
 - [ ] Configure Tailwind CSS theme (colors, typography, spacing) inspired by ISDIN

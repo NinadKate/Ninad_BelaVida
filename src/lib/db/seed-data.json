@@ -1,0 +1,119 @@
+{
+    "categories": [
+        {
+            "slug": "urea",
+            "name": {
+                "es": "Línea Urea",
+                "en": "Urea Line"
+            }
+        },
+        {
+            "slug": "piel-atopica",
+            "name": {
+                "es": "Línea Piel Atópica",
+                "en": "Atopic Skin Line"
+            }
+        },
+        {
+            "slug": "aloe-vera",
+            "name": {
+                "es": "Línea Aloe Vera",
+                "en": "Aloe Vera Line"
+            }
+        },
+        {
+            "slug": "avena",
+            "name": {
+                "es": "Línea Avena",
+                "en": "Oat Line"
+            }
+        },
+        {
+            "slug": "black-cumin",
+            "name": {
+                "es": "Línea Black Cumin",
+                "en": "Black Cumin Line"
+            }
+        }
+    ],
+    "products": [
+        {
+            "categorySlug": "urea",
+            "slug": "locion-hidratante-urea-950ml",
+            "price": 9900,
+            "name": {
+                "es": "LOCIÓN HIDRATANTE UREA 950 ML",
+                "en": "UREA HYDRATING LOTION 950 ML"
+            },
+            "description": {
+                "es": "Loción corporal hidratante con urea para piel seca.",
+                "en": "Hydrating body lotion with urea for dry skin."
+            }
+        },
+        {
+            "categorySlug": "urea",
+            "slug": "crema-reparadora-urea-400ml",
+            "price": 9900,
+            "name": {
+                "es": "CREMA REPARADORA UREA 400 ML",
+                "en": "UREA REPAIR CREAM 400 ML"
+            },
+            "description": {
+                "es": "Crema reparadora intensiva con urea.",
+                "en": "Intensive repair cream with urea."
+            }
+        },
+        {
+            "categorySlug": "piel-atopica",
+            "slug": "crema-cuidado-integral-piel-atopica-400ml",
+            "price": 9990,
+            "name": {
+                "es": "CREMA CUIDADO INTEGRAL PIEL ATOPICA 400 ML",
+                "en": "ATOPIC SKIN INTEGRAL CARE CREAM 400 ML"
+            },
+            "description": {
+                "es": "Cuidado integral para pieles sensibles y atópicas.",
+                "en": "Integral care for sensitive and atopic skin."
+            }
+        },
+        {
+            "categorySlug": "aloe-vera",
+            "slug": "locion-hidratante-aloe-vera-950ml",
+            "price": 9490,
+            "name": {
+                "es": "LOCIÓN HIDRATANTE ALOE VERA 950 ML",
+                "en": "ALOE VERA HYDRATING LOTION 950 ML"
+            },
+            "description": {
+                "es": "Loción refrescante con extracto de aloe vera natural.",
+                "en": "Refreshing lotion with natural aloe vera extract."
+            }
+        },
+        {
+            "categorySlug": "avena",
+            "slug": "locion-de-avena-950ml",
+            "price": 9490,
+            "name": {
+                "es": "LOCIÓN DE AVENA 950 ML",
+                "en": "OAT LOTION 950 ML"
+            },
+            "description": {
+                "es": "Loción suave de avena para pieles delicadas.",
+                "en": "Gentle oat lotion for delicate skin."
+            }
+        },
+        {
+            "categorySlug": "black-cumin",
+            "slug": "black-cumin-pudding-gel-cream",
+            "price": 25000,
+            "name": {
+                "es": "BLACK Cumin NDA Pudding Gel Cream",
+                "en": "BLACK Cumin NDA Pudding Gel Cream"
+            },
+            "description": {
+                "es": "Gel crema innovador con comino negro.",
+                "en": "Innovative gel cream with black cumin."
+            }
+        }
+    ]
+}
