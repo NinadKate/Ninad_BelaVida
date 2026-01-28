@@ -1,0 +1,46 @@
+import Image from "next/image";
+import { Plus } from "lucide-react";
+
+interface ProductCardProps {
+  name: string;
+  category: string;
+  price: string;
+  imageUrl: string;
+}
+
+export default function ProductCard({ name, category, price, imageUrl }: ProductCardProps) {
+  return (
+    <div className="group bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:shadow-neutral-dark/5 border border-transparent hover:border-neutral-med">
+      {/* Product Image */}
+      <div className="relative aspect-square rounded-xl bg-neutral-soft overflow-hidden mb-4">
+        <Image
+          src={imageUrl}
+          alt={name}
+          fill
+          className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+        />
+        <button className="absolute bottom-3 right-3 bg-brand-red text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          <Plus size={20} />
+        </button>
+      </div>
+
+      {/* Product Info */}
+      <div className="space-y-1">
+        <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
+          {category}
+        </span>
+        <h3 className="text-sm font-bold text-neutral-dark line-clamp-2 min-h-[40px] group-hover:text-brand-red transition-colors">
+          {name}
+        </h3>
+        <div className="flex items-center justify-between pt-2">
+          <span className="text-lg font-heading font-bold text-neutral-dark">
+            {price}
+          </span>
+          <span className="text-[10px] text-neutral-400 font-medium">
+            IVA Incluido
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}

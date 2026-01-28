@@ -11,10 +11,10 @@
 - [x] Extract sample products and categories from [prd](file:///home/yashp/projects/bellavida/prd) PDFs
 - [x] Create a seed script to populate the database with initial catalog data
 
-## 3. Design System & Base UI [/]
-- [ ] Configure Tailwind CSS theme (colors, typography, spacing) inspired by ISDIN
-- [ ] Implement responsive Header (with locale switcher) and Footer
-- [ ] Build reusable UI components (Buttons, Inputs, Modals, Product Cards)
+## 3. Design System & Base UI [x]
+- [x] Configure Tailwind CSS theme (colors, typography, spacing) inspired by ISDIN
+- [x] Implement responsive Header (with locale switcher) and Footer
+- [x] Build reusable UI components (Buttons, Inputs, Modals, Product Cards)
 
 ## 4. Feature Implementation [/]
 - [ ] **Multi-language Catalog**: PLP and PDP with localized content
