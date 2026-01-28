@@ -7,6 +7,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import NextAuthProvider from "@/components/providers/NextAuthProvider";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -28,7 +30,7 @@ export default async function RootLayout({
   params
 }: {
   children: React.ReactNode;
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
 
@@ -47,11 +49,14 @@ export default async function RootLayout({
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col`}
       >
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
+          <NextAuthProvider>
+            <Header />
+            <CartDrawer locale={locale} />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </NextAuthProvider>
         </NextIntlClientProvider>
       </body>
     </html>

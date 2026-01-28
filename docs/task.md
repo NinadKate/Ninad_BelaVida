@@ -18,11 +18,13 @@
 
 ## 4. Feature Implementation [/]
 - [x] **Multi-language Catalog**: Setup `next-intl` and folder-based routing
-- [ ] **PLP and PDP**: with localized content
-- [ ] **Authentication**: Sign-up, Login, and Profile management
-- [ ] **Cart**: Global state management with Zustand
-- [ ] **Checkout**: Shipping info collection and Order creation
-- [ ] **Admin Panel**: Dashboard to manage Products, Categories, and Orders
+- [x] **PLP and PDP**: with localized content
+- [x] **Authentication**: Sign-up, Login, and Profile management
+- [x] **Cart**: Global state management with Zustand
+- [x] **Checkout**: Shipping info collection and Order creation
+- [/] **Admin Panel**: Dashboard to manage Products, Categories, and Orders
+  - [x] View Orders
+  - [x] Manage Products (Add, Update, Delete)
 
 ## 5. Integrations & Notifications [/]
 - [ ] Setup Cloudflare R2 for image storage

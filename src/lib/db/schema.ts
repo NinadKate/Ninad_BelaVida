@@ -9,7 +9,7 @@ import {
   jsonb,
   primaryKey,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccountType } from "next-auth/adapters";
+// import type { AdapterAccountType } from "next-auth/adapters";
 
 // --- Auth Tables (NextAuth.js Standard) ---
 
@@ -20,6 +20,7 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   role: text("role").default("user").notNull(), // user, admin
+  password: text("password"),
 });
 
 export const accounts = pgTable(
@@ -28,7 +29,7 @@ export const accounts = pgTable(
     userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccountType>().notNull(),
+    type: text("type").notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
     refresh_token: text("refresh_token"),

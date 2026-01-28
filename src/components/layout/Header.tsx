@@ -2,12 +2,26 @@
 
 import Link from "next/link";
 import { Search, ShoppingBag, User, Globe, ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { COUNTRIES } from "@/constants/countries";
+import { useCartStore } from "@/lib/store/cart";
+import { useSession } from "next-auth/react";
+import { usePathname, useRouter } from "@/i18n/routing";
+import { useLocale } from 'next-intl';
 
 export default function Header() {
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [currentCountry, setCurrentCountry] = useState(COUNTRIES[0]);
+  const { itemCount, setIsOpen } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+  const { data: session } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full glass h-[var(--header-height)]">
@@ -45,8 +59,8 @@ export default function Header() {
         {/* Center: Logo */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center gap-1 group">
-             <span className="bg-brand-red text-white px-2 py-0.5 rounded italic transition-transform group-hover:scale-110">B</span>
-             <span className="text-neutral-dark">BELLA VIDA</span>
+            <span className="bg-brand-red text-white px-2 py-0.5 rounded italic transition-transform group-hover:scale-110">B</span>
+            <span className="text-neutral-dark">BELLA VIDA</span>
           </Link>
         </div>
 
@@ -55,15 +69,25 @@ export default function Header() {
           <button className="p-2 hover:bg-neutral-soft rounded-full transition-colors group">
             <Search size={22} className="group-hover:text-brand-red group-hover:scale-110 transition-all" />
           </button>
-          <button className="p-2 hover:bg-neutral-soft rounded-full transition-colors group">
+          <button
+            onClick={() => session ? router.push('/account') : router.push('/login')}
+            className="p-2 hover:bg-neutral-soft rounded-full transition-colors group"
+          >
             <User size={22} className="group-hover:text-brand-red group-hover:scale-110 transition-all" />
           </button>
-          <Link href="/cart" className="p-2 hover:bg-neutral-soft rounded-full transition-colors group relative">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="p-2 hover:bg-neutral-soft rounded-full transition-colors group relative"
+          >
             <ShoppingBag size={22} className="group-hover:text-brand-red group-hover:scale-110 transition-all" />
-            <span className="absolute top-1 right-1 bg-brand-red text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
-              0
-            </span>
-          </Link>
+
+            {mounted && itemCount() > 0 && (
+              <span className="absolute top-1 right-1 bg-brand-red text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                {itemCount()}
+              </span>
+            )}
+
+          </button>
         </div>
       </div>
 
