@@ -17,7 +17,8 @@
 - [x] Build reusable UI components (Buttons, Inputs, Modals, Product Cards)
 
 ## 4. Feature Implementation [/]
-- [ ] **Multi-language Catalog**: PLP and PDP with localized content
+- [x] **Multi-language Catalog**: Setup `next-intl` and folder-based routing
+- [ ] **PLP and PDP**: with localized content
 - [ ] **Authentication**: Sign-up, Login, and Profile management
 - [ ] **Cart**: Global state management with Zustand
 - [ ] **Checkout**: Shipping info collection and Order creation

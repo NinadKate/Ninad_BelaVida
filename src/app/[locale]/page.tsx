@@ -1,14 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
+  const t = useTranslations('Hero');
+
   const featuredProducts = [
     {
       name: "Protector Solar Fusion Water MAGIC SPF 50",
       category: "Solar",
       price: "$24.990",
-      imageUrl: "/hero-skincare.png", // Reusing hero image for now
+      imageUrl: "/hero-skincare.png",
     },
     {
       name: "Hyaluronic Concentrate Serum",
@@ -37,27 +40,29 @@ export default function Home() {
         <div className="container mx-auto px-4 z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="animate-in fade-in slide-in-from-left-8 duration-700">
             <span className="text-brand-red font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-4 block">
-              Innovación Dermatológica
+              {t('tagline')}
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-neutral-dark mb-6 leading-tight">
-              Tu piel, nuestra <br />
-              <span className="italic font-light">inspiración</span>
+              {t.rich('title', {
+                br: () => <br />,
+                italic: (chunks) => <span className="italic font-light">{chunks}</span>
+              })}
             </h1>
             <p className="text-lg text-neutral-600 mb-8 max-w-md leading-relaxed">
-              Descubre fórmulas avanzadas diseñadas para proteger y restaurar la salud natural de tu piel, todos los días.
+              {t('subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/shop/solar"
                 className="btn-premium bg-brand-red text-white hover:bg-brand-red-dark shadow-lg shadow-brand-red/20 text-center"
               >
-                Descubrir productos
+                {t('discover')}
               </Link>
               <Link
                 href="/shop/facial"
                 className="btn-premium border border-neutral-dark text-neutral-dark hover:bg-neutral-dark hover:text-white text-center"
               >
-                Ver rutinas
+                {t('routines')}
               </Link>
             </div>
           </div>
