@@ -16,6 +16,7 @@
 
 ### 2. Authentication & Authorization
 - **NextAuth**: Configured with `CredentialsProvider` and `DrizzleAdapter`.
+- **Google OAuth**: Integrated via `GoogleProvider`. Login/Register buttons added.
 - **Role Management**: User roles (`user`, `admin`) implemented and securely stored in session.
 - **Protection**: Admin routes (`/api/products`, `/api/upload`, `/admin`) correctly check for `session.user.role === 'admin'`.
 - **Status**: **VERIFIED** (Code logic is secure).

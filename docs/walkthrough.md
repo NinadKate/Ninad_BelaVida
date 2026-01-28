@@ -20,7 +20,16 @@ Implemented transactional email notifications for new orders.
 - **Template**: Created simple HTML order summary template.
 - **Trigger**: Checkout API (`/api/checkout`) sends email to admin (`admin@bellavida.cl`) upon successful order placement.
 
-## 3. UI/UX Refinements
+## 3. Google Authentication
+
+Implemented Google OAuth for seamless user onboarding.
+
+**Features:**
+- **Provider**: Added `GoogleProvider` to NextAuth configuration.
+- **UI**: Added "Sign in with Google" and "Sign up with Google" buttons on Login and Register pages.
+- **Flow**: Supports both Sign Up (account creation) and Sign In.
+
+## 4. UI/UX Refinements
 
 Polished the application and connected the Homepage to real data.
 
@@ -29,12 +38,12 @@ Polished the application and connected the Homepage to real data.
 - **Dynamic Categories**: "Featured Lines" section now pulls from `categories` table.
 - **Product Card**: ensured generic placeholder usage if images are missing.
 
-## 4. Updates & Fixes
+## 5. Updates & Fixes
 
 - **Type Safety**: Fixed TypeScript errors related to `NextAuth` types by creating `src/types/next-auth.d.ts` and proper casting.
 - **Code Quality**: Cleaned up component imports and usage.
 
-## 5. Configuration Requirements
+## 6. Configuration Requirements
 
 New environment variables added:
 ```bash
@@ -47,6 +56,10 @@ NEXT_PUBLIC_R2_URL="https://cdn.your-domain.com"
 
 # Resend
 RESEND_API_KEY="re_..."
+
+# Google Auth
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
 ```
 
 ## Next Steps (Task 6)
