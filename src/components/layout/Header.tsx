@@ -1,23 +1,22 @@
 "use client";
 
-import Link from "next/link";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { Search, ShoppingBag, User, Globe, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { COUNTRIES } from "@/constants/countries";
 import { useCartStore } from "@/lib/store/cart";
 import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "@/i18n/routing";
 import { useLocale } from 'next-intl';
 
 export default function Header() {
+  const locale = useLocale();
   const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [currentCountry, setCurrentCountry] = useState(COUNTRIES[0]);
+  const currentCountry = COUNTRIES.find(c => c.locale === locale) || COUNTRIES[0];
   const { itemCount, setIsOpen } = useCartStore();
   const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
 
   useEffect(() => {
     setMounted(true);
@@ -40,17 +39,18 @@ export default function Header() {
           {isCountryOpen && (
             <div className="absolute top-full mt-2 left-0 bg-white shadow-xl rounded-xl border border-neutral-med p-2 min-w-[160px] animate-in fade-in slide-in-from-top-2">
               {COUNTRIES.map((country) => (
-                <button
+                <Link
                   key={country.code}
+                  href={pathname}
+                  locale={country.locale as any}
                   onClick={() => {
-                    setCurrentCountry(country);
                     setIsCountryOpen(false);
                   }}
                   className="w-full flex items-center gap-3 px-3 py-2 text-sm hover:bg-neutral-soft rounded-lg transition-colors"
                 >
                   <span>{country.flag}</span>
                   <span className="flex-1 text-left">{country.name}</span>
-                </button>
+                </Link>
               ))}
             </div>
           )}
@@ -96,7 +96,7 @@ export default function Header() {
         {["Solar", "Facial", "Corporal", "Piel Atópica", "Catálogo"].map((item) => (
           <Link
             key={item}
-            href={`/shop/${item.toLowerCase().replace(" ", "-")}`}
+            href={item === "Catálogo" ? "/products" : `/products/${item.toLowerCase().replace(" ", "-")}`}
             className="pb-2 border-b-2 border-transparent hover:border-brand-red hover:text-brand-red transition-all"
           >
             {item}

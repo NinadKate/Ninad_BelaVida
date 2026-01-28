@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { Facebook, Instagram, Twitter, Youtube, Send } from "lucide-react";
 
 export default function Footer() {
@@ -28,10 +28,10 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-sm uppercase tracking-widest mb-6">Productos</h4>
             <ul className="space-y-4 text-sm text-neutral-400">
-              <li><Link href="/shop/solar" className="hover:text-white transition-colors">Protección Solar</Link></li>
-              <li><Link href="/shop/facial" className="hover:text-white transition-colors">Cuidado Facial</Link></li>
-              <li><Link href="/shop/corporal" className="hover:text-white transition-colors">Cuidado Corporal</Link></li>
-              <li><Link href="/shop/piel-atopica" className="hover:text-white transition-colors">Piel Atópica</Link></li>
+              <li><Link href="/products/solar" className="hover:text-white transition-colors">Protección Solar</Link></li>
+              <li><Link href="/products/facial" className="hover:text-white transition-colors">Cuidado Facial</Link></li>
+              <li><Link href="/products/corporal" className="hover:text-white transition-colors">Cuidado Corporal</Link></li>
+              <li><Link href="/products/piel-atopica" className="hover:text-white transition-colors">Piel Atópica</Link></li>
             </ul>
           </div>
 

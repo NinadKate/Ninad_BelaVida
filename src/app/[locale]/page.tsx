@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
 import { getTranslations } from 'next-intl/server';
@@ -34,13 +34,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/shop/solar"
+                href="/products/solar"
                 className="btn-premium bg-brand-red text-white hover:bg-brand-red-dark shadow-lg shadow-brand-red/20 text-center"
               >
                 {t('discover')}
               </Link>
               <Link
-                href="/shop/facial"
+                href="/products/facial"
                 className="btn-premium border border-neutral-dark text-neutral-dark hover:bg-neutral-dark hover:text-white text-center"
               >
                 {t('routines')}
@@ -70,7 +70,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2 className="text-3xl font-bold text-neutral-dark mb-2">Nuestras Líneas</h2>
             <p className="text-neutral-500">Encuentra el cuidado perfecto para tus necesidades.</p>
           </div>
-          <Link href="/shop" className="text-neutral-dark font-medium underline underline-offset-4 hover:text-brand-red transition-colors">
+          <Link href="/products" className="text-neutral-dark font-medium underline underline-offset-4 hover:text-brand-red transition-colors">
             Ver todo el catálogo
           </Link>
         </div>
