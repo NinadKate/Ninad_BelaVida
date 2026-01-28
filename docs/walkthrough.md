@@ -1,72 +1,55 @@
-# Walkthrough - Task 4 Feature Implementation
+# Walkthrough - Task 5 Feature Implementation
 
-I have implemented the core e-commerce features and authentication infrastructure.
+I have implemented the integrations for storage and email, and refined the frontend.
 
-## 1. Product Listing and Detail Pages (PLP/PDP)
+## 1. Cloudflare R2 Integration (Storage)
 
-Implemented dynamic routes for localized product brousing:
-- **PLP**: `/[locale]/products/[category]` - Fetches products by category slug.
-- **PDP**: `/[locale]/products/[category]/[slug]` - Shows product details.
-
-**Key Files:**
-- `src/app/[locale]/products/[category]/page.tsx`
-- `src/app/[locale]/products/[category]/[slug]/page.tsx`
-- `src/lib/db/queries.ts`: Added `getProductsByCategory`, `getProductBySlug`.
-- `src/lib/utils.ts`: Localization helper `getLocalized`.
-
-## 2. Authentication
-
-Implemented secure authentication using NextAuth.js (Auth.js) v4.
+Implemented secure, direct-to-bucket file uploads for product images.
 
 **Features:**
-- **Sign Up**: Custom registration page with bcrypt password hashing (`/register`).
-- **Login**: Credential-based login (`/login`).
-- **Profile**: Protected account page (`/account`).
+- **Infrastructure**: Installed `@aws-sdk/client-s3` and configured in `src/lib/r2.ts`.
+- **API**: `/api/upload` endpoint generates presigned URLs for secure uploading.
+- **Admin Integration**: Updated `ProductForm.tsx` to upload selected files to R2 before saving product data.
 
-## 3. Shopping Cart
+## 2. Resend Integration (Email)
 
-Implemented global cart state using **Zustand** with local storage persistence.
-
-**Features:**
-- **Store**: `src/lib/store/cart.ts` handles add, remove, update quantity, and total calculation.
-- **UI**: `CartDrawer.tsx` slide-over component.
-- **Integration**: Added "Add to Cart" button on PDP and Cart icon in Header.
-
-## 4. Checkout & Orders
-
-Implemented full checkout flow and order management.
+Implemented transactional email notifications for new orders.
 
 **Features:**
-- **Checkout Page**: `/[locale]/checkout` collects shipping info and validates using Zod.
-- **API**: `/api/checkout` creates Order and OrderItems in database (transactional).
-- **Success Page**: `/[locale]/checkout/success` displays order confirmation.
+- **Infrastructure**: Installed `resend` and configured in `src/lib/email.ts`.
+- **Template**: Created simple HTML order summary template.
+- **Trigger**: Checkout API (`/api/checkout`) sends email to admin (`admin@bellavida.cl`) upon successful order placement.
 
-## 5. Admin Panel
+## 3. UI/UX Refinements
 
-Implemented a protected dashboard for store management.
+Polished the application and connected the Homepage to real data.
 
 **Features:**
-- **Dashboard**: `/[locale]/admin` with tabs for Orders and Products.
-- **Orders View**: List of all orders with status and details.
-- **Product Management**: Full CRUD capabilities for products.
-    - **Add/Edit**: Modal form for product details, localized names/descriptions, price, stock, and images.
-    - **Delete**: Remove products from the catalog.
-- **API**: `/api/products` endpoint handles Create, Update, and Delete operations protected by admin check.
+- **Dynamic Homepage**: Replaced static featured products with `getFeaturedProducts` query from database.
+- **Dynamic Categories**: "Featured Lines" section now pulls from `categories` table.
+- **Product Card**: ensured generic placeholder usage if images are missing.
 
-**Database Updates:**
-- Verified `orders` and `order_items` tables in schema.
-- Added `password` column to `users` schema (fixed earlier).
+## 4. Updates & Fixes
 
-## 6. Configuration Requirements
+- **Type Safety**: Fixed TypeScript errors related to `NextAuth` types by creating `src/types/next-auth.d.ts` and proper casting.
+- **Code Quality**: Cleaned up component imports and usage.
 
-To run the application, ensure your `.env` file contains:
+## 5. Configuration Requirements
+
+New environment variables added:
 ```bash
-DATABASE_URL="postgres://..."
-NEXTAUTH_SECRET="your-secret-key"
-NEXTAUTH_URL="http://localhost:3000"
+# Cloudflare R2
+R2_ACCOUNT_ID="your-account-id"
+R2_ACCESS_KEY_ID="your-access-key"
+R2_SECRET_ACCESS_KEY="your-secret-key"
+R2_BUCKET_NAME="bellavida-uploads"
+NEXT_PUBLIC_R2_URL="https://cdn.your-domain.com"
+
+# Resend
+RESEND_API_KEY="re_..."
 ```
 
-## Next Steps (Task 5)
-- Setup Cloudflare R2 for real product images.
-- Integrate Resend for emails.
-- Final UI polish.
+## Next Steps (Task 6)
+- Full verification of locale switching.
+- Test full checkout flow with real image uploads and email delivery.
+- Final launch audit.

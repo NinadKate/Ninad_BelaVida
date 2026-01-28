@@ -27,11 +27,11 @@
   - [x] Manage Products (Add, Update, Delete)
 
 ## 5. Integrations & Notifications [/]
-- [ ] Setup Cloudflare R2 for image storage
-- [ ] Integrate Resend for checkout notification emails to admins
-- [ ] Final UI/UX refinements and micro-animations
+- [x] Setup Cloudflare R2 for image storage
+- [x] Integrate Resend for checkout notification emails to admins
+- [x] Final UI/UX refinements and micro-animations
 
-## 6. Verification & Launch [/]
-- [ ] Verify locale switching and routing
-- [ ] Test full checkout flow and email delivery
-- [ ] Final audit against ISDIN reference site
+## 6. Verification & Launch [x]
+- [x] Verify locale switching and routing
+- [x] Test full checkout flow and email delivery
+- [x] Final audit against ISDIN reference site
