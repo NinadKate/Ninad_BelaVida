@@ -29,10 +29,11 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full glass h-[var(--header-height)]">
       <div className="container mx-auto h-full px-4 flex items-center justify-between">
         {/* Left: Country Selector */}
-        <div className="relative flex items-center gap-2">
+        <div className="relative flex items-center gap-2" suppressHydrationWarning>
           <button
             onClick={() => setIsCountryOpen(!isCountryOpen)}
             className="flex items-center gap-2 text-sm font-medium hover:text-brand-red transition-colors"
+            suppressHydrationWarning
           >
             <Globe size={18} />
             <span>{currentCountry.code}</span>

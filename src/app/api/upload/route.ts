@@ -5,17 +5,21 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { randomUUID } from "crypto";
-import { AuthOptions } from "next-auth";
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions as AuthOptions);
-        // Secure this endpoint
-        if (!session || session.user?.role !== 'admin') {
-            // Also check hardcoded admin email if role not reliable for now
-            if (session?.user?.email !== "admin@bellavida.cl") {
-                return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-            }
+        const session = await getServerSession(authOptions);
+
+        if (!session?.user?.email) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        const user = await db.query.users.findFirst({ where: eq(users.email, session.user.email) });
+        if (!user || user.role !== 'admin') {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
         const { filename, contentType } = await req.json();

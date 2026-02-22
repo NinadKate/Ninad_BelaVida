@@ -12,6 +12,7 @@ export const r2Client = new S3Client({
         accessKeyId: accessKeyId || "",
         secretAccessKey: secretAccessKey || "",
     },
+    forcePathStyle: true, // Required for Cloudflare R2 presigned URLs
 });
 
 export const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || "bellavida-uploads";

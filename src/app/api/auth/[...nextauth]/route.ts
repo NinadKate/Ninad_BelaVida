@@ -1,13 +1,11 @@
-import NextAuth, { AuthOptions } from "next-auth"
+import NextAuth, { AuthOptions, Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google"
-import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { db } from "@/lib/db"
 import { users } from "@/lib/db/schema"
 import { eq } from "drizzle-orm"
 
 export const authOptions = {
-    adapter: DrizzleAdapter(db),
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -43,17 +41,17 @@ export const authOptions = {
         strategy: "jwt" as const
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user }: { token: any; user: any }) {
             if (user) {
-                token.role = (user as any).role
-                token.id = user.id
+                token.userRole = user.role
+                token.userId = user.id
             }
             return token
         },
-        async session({ session, token }) {
+        async session({ session, token }: { session: Session; token: any }) {
             if (session.user) {
-                (session.user as any).role = token.role
-                (session.user as any).id = token.id
+                (session.user as any).role = token.userRole
+                    ; (session.user as any).id = token.userId
             }
             return session
         }

@@ -4,12 +4,11 @@ import { orders, orderItems, users, products } from "@/lib/db/schema";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { sendOrderNotification } from "@/lib/email";
-import { AuthOptions } from "next-auth";
 import { eq, inArray } from "drizzle-orm";
 
 export async function POST(req: Request) {
     try {
-        const session = await getServerSession(authOptions as AuthOptions);
+        const session = await getServerSession(authOptions);
         const body = await req.json();
         const { items, shippingInfo, total, locale } = body;
 

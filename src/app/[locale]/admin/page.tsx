@@ -6,26 +6,25 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "@/i18n/routing";
 import { formatCurrency } from "@/lib/utils";
 import AdminProducts from "@/components/admin/AdminProducts";
-import { AuthOptions } from "next-auth";
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 export default async function AdminDashboard({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ tab?: string }> }) {
     const { locale } = await params;
     const { tab } = await searchParams;
-    const session = await getServerSession(authOptions as AuthOptions);
+    const session = await getServerSession(authOptions);
 
-    if (!session || session.user?.email !== "admin@bellavida.cl") {
-        const user = session?.user?.email
-            ? await db.query.users.findFirst({ where: eq(users.email, session.user.email) })
-            : null;
-
-        if (!user || user.role !== 'admin') {
-            redirect({ href: '/', locale });
-            return null;
-        }
+    if (!session?.user?.email) {
+        redirect({ href: '/', locale });
+        return null;
     }
 
-    const t = useTranslations('Admin');
+    const user = await db.query.users.findFirst({ where: eq(users.email, session.user.email) });
+    if (!user || user.role !== 'admin') {
+        redirect({ href: '/', locale });
+        return null;
+    }
+
+    const t = await getTranslations('Admin');
     const currentTab = tab || 'orders';
 
     // Fetch data based on tab? Or just fetch all necessary for simple dashboard.
