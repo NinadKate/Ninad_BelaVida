@@ -6,10 +6,11 @@ import { useState, useEffect } from "react";
 import { COUNTRIES } from "@/constants/countries";
 import { useCartStore } from "@/lib/store/cart";
 import { useSession } from "next-auth/react";
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Header() {
   const locale = useLocale();
+  const t = useTranslations('Navbar');
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const currentCountry = COUNTRIES.find(c => c.locale === locale) || COUNTRIES[0];
   const { itemCount, setIsOpen } = useCartStore();
@@ -60,7 +61,7 @@ export default function Header() {
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center gap-1 group">
             <span className="bg-brand-red text-white px-2 py-0.5 rounded italic transition-transform group-hover:scale-110">B</span>
-            <span className="text-neutral-dark">BELLA VIDA</span>
+            <span className="text-neutral-dark uppercase tracking-tight">Bela Vida</span>
           </Link>
         </div>
 
@@ -93,13 +94,19 @@ export default function Header() {
 
       {/* Primary Navigation */}
       <nav className="container mx-auto px-4 mt-[-8px] flex justify-center gap-8 text-[13px] font-medium uppercase tracking-widest text-neutral-dark overflow-x-auto whitespace-nowrap scrollbar-hide">
-        {["Solar", "Facial", "Corporal", "Piel Atópica", "Catálogo"].map((item) => (
+        {[
+          { key: "solar", label: t('solar') },
+          { key: "facial", label: t('facial') },
+          { key: "corporal", label: t('corporal') },
+          { key: "atopic", label: t('atopic'), slug: "piel-atopica" },
+          { key: "catalog", label: t('catalog'), href: "/products" }
+        ].map((item) => (
           <Link
-            key={item}
-            href={item === "Catálogo" ? "/products" : `/products/${item.toLowerCase().replace(" ", "-")}`}
+            key={item.key}
+            href={item.href || `/products/${item.slug || item.key}`}
             className="pb-2 border-b-2 border-transparent hover:border-brand-red hover:text-brand-red transition-all"
           >
-            {item}
+            {item.label}
           </Link>
         ))}
       </nav>

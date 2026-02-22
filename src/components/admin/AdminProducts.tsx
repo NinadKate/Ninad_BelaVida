@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
+import { useTranslations } from 'next-intl';
 import ProductForm from "./ProductForm";
 import { useRouter } from "@/i18n/routing";
 import { Trash2, Edit } from "lucide-react";
@@ -14,6 +15,7 @@ interface AdminProductsProps {
 
 export default function AdminProducts({ initialProducts, categories, locale }: AdminProductsProps) {
     const router = useRouter();
+    const t = useTranslations('Admin.products');
     const [products, setProducts] = useState(initialProducts);
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<any | null>(null);
@@ -29,7 +31,7 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
     };
 
     const handleDelete = async (id: number) => {
-        if (!confirm("Are you sure you want to delete this product?")) return;
+        if (!confirm(t('confirmDelete'))) return;
 
         try {
             const res = await fetch(`/api/products?id=${id}`, { method: "DELETE" });
@@ -46,12 +48,12 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
     return (
         <div>
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold font-heading text-neutral-dark">Products</h2>
+                <h2 className="text-xl font-bold font-heading text-neutral-dark">{t('title')}</h2>
                 <button
                     onClick={() => { setEditingProduct(null); setIsFormOpen(true); }}
                     className="bg-brand-red text-white px-4 py-2 rounded-lg font-bold hover:bg-brand-red-dark transition-colors"
                 >
-                    + Add Product
+                    + {t('add')}
                 </button>
             </div>
 
@@ -59,12 +61,12 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
                 <table className="w-full text-left">
                     <thead className="bg-neutral-soft border-b border-neutral-med">
                         <tr>
-                            <th className="p-4 text-sm">ID</th>
-                            <th className="p-4 text-sm">Name</th>
-                            <th className="p-4 text-sm">Category</th>
-                            <th className="p-4 text-sm">Price</th>
-                            <th className="p-4 text-sm">Stock</th>
-                            <th className="p-4 text-sm text-right">Actions</th>
+                            <th className="p-4 text-sm">{t('id')}</th>
+                            <th className="p-4 text-sm">{t('name')}</th>
+                            <th className="p-4 text-sm">{t('category')}</th>
+                            <th className="p-4 text-sm">{t('price')}</th>
+                            <th className="p-4 text-sm">{t('stock')}</th>
+                            <th className="p-4 text-sm text-right">{t('actions')}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-neutral-med">

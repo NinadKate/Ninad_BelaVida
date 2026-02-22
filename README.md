@@ -1,9 +1,9 @@
-# BELLA VIDA
+# BELA VIDA
 
 A premium skincare e-commerce website, inspired by the ISDIN aesthetic, tailored for the South American market.
 
 ## Project Overview
-BELLA VIDA is a high-performance, multi-language e-commerce platform built with Next.js. It features a sophisticated product catalog, user authentication, and a streamlined administrative checkout process.
+BELA VIDA is a high-performance, multi-language e-commerce platform built with Next.js. It features a sophisticated product catalog, user authentication, and a streamlined administrative checkout process.
 
 ## Tech Stack
 - **Framework**: [Next.js](https://nextjs.org/) (App Router)

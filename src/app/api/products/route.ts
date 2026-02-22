@@ -22,7 +22,7 @@ export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        const { slug, sku, price, name, description, categoryId, images, stock } = body;
+        const { slug, sku, price, prices, name, description, categoryId, images, stock } = body;
 
         // Basic validation
         if (!slug || !price || !name || !description) {
@@ -33,6 +33,7 @@ export async function POST(req: Request) {
             slug,
             sku,
             price: price.toString(),
+            prices: prices || {},
             name,
             description,
             categoryId: Number(categoryId),

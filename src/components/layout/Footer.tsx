@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           {/* Brand & Newsletter */}
           <div className="col-span-1 md:col-span-1">
-            <h3 className="text-xl font-bold tracking-tighter mb-6 italic">BELLA VIDA</h3>
+            <h3 className="text-xl font-bold tracking-tighter mb-6 italic">Bela Vida</h3>
             <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
               Descubre la belleza a través de la ciencia. Suscríbete para recibir consejos exclusivos y lanzamientos.
             </p>
@@ -64,7 +64,7 @@ export default function Footer() {
               </a>
             </div>
             <p className="mt-8 text-xs text-neutral-500">
-              © 2026 BELLA VIDA. Todos los derechos reservados.
+              © 2026 Bela Vida. Todos los derechos reservados.
             </p>
           </div>
         </div>

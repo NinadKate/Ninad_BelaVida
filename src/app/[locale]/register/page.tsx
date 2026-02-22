@@ -9,6 +9,8 @@ export default function RegisterPage() {
     const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -22,7 +24,7 @@ export default function RegisterPage() {
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password }),
+                body: JSON.stringify({ name, email, phone, address, password }),
             });
 
             if (res.ok) {
@@ -67,6 +69,27 @@ export default function RegisterPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1 text-neutral-dark">Phone Number</label>
+                        <input
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="+56 9 1234 5678"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1 text-neutral-dark">Shipping Address</label>
+                        <textarea
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="Street, City, Country"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none min-h-[80px]"
                             required
                         />
                     </div>

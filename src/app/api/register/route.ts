@@ -7,10 +7,10 @@ import { randomUUID } from "crypto";
 
 export async function POST(req: Request) {
     try {
-        const { email, password, name } = await req.json();
+        const { email, password, name, phone, address } = await req.json();
 
-        if (!email || !password) {
-            return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+        if (!email || !password || !name) {
+            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
         // Check if user exists
@@ -28,6 +28,8 @@ export async function POST(req: Request) {
             id: randomUUID(),
             email,
             name,
+            phone,
+            address,
             password: hashedPassword,
             role: "user"
         });

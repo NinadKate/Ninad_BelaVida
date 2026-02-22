@@ -22,6 +22,8 @@ export const users = pgTable("user", {
   image: text("image"),
   role: text("role").default("user").notNull(), // user, admin
   password: text("password"),
+  phone: text("phone"),
+  address: text("address"),
 });
 
 export const accounts = pgTable(
@@ -84,6 +86,7 @@ export const products = pgTable("product", {
   slug: text("slug").notNull().unique(),
   sku: text("sku").unique(),
   price: numeric("price", { precision: 10, scale: 2 }).notNull(),
+  prices: jsonb("prices").notNull().default({}),
   name: jsonb("name").notNull(), // { en: "", es: "", ... }
   description: jsonb("description").notNull(), // { en: "", es: "", ... }
   images: text("images").array(), // Array of R2 URLs

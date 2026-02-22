@@ -1,1 +1,64 @@
-{"Common": {"title": "BELLA VIDA", "description": "Belleza a través de la Ciencia"}, "Header": {"search": "Buscar", "account": "Mi Cuenta", "cart": "Carrito"}, "Hero": {"tagline": "Innovación Dermatológica", "title": "Tu piel, nuestra inspiración", "subtitle": "Descubre fórmulas avanzadas diseñadas para proteger y restaurar la salud natural de tu piel, todos los días.", "discover": "Descubrir productos", "routines": "Ver rutinas"}}
+{
+    "Common": {
+        "title": "Bela Vida",
+        "description": "Belleza a través de la Ciencia"
+    },
+    "Header": {
+        "search": "Buscar",
+        "account": "Mi Cuenta",
+        "cart": "Carrito"
+    },
+    "Hero": {
+        "tagline": "Innovación Dermatológica",
+        "title": "Tu piel, nuestra inspiración",
+        "subtitle": "Descubre fórmulas avanzadas diseñadas para proteger y restaurar la salud natural de tu piel, todos los días.",
+        "discover": "Descubrir productos",
+        "routines": "Ver rutinas"
+    },
+    "Navbar": {
+        "solar": "Solar",
+        "facial": "Facial",
+        "corporal": "Corporal",
+        "atopic": "Piel Atópica",
+        "catalog": "Catálogo",
+        "fullCatalog": "Catálogo Completo",
+        "noProducts": "No hay productos disponibles en este momento."
+    },
+    "Account": {
+        "title": "Mi Cuenta",
+        "notLoggedIn": "No has iniciado sesión.",
+        "goToLogin": "Ir al inicio de sesión",
+        "orderHistory": "Historial de Pedidos",
+        "noOrders": "Aún no hay pedidos."
+    },
+    "Admin": {
+        "title": "Panel de Administración",
+        "tabs": {
+            "orders": "Pedidos",
+            "products": "Productos"
+        },
+        "orders": {
+            "id": "ID de Pedido",
+            "date": "Fecha",
+            "customer": "Cliente",
+            "status": "Estado",
+            "total": "Total",
+            "action": "Acción",
+            "view": "Ver",
+            "noOrders": "No se encontraron pedidos."
+        },
+        "products": {
+            "title": "Productos",
+            "add": "Agregar Producto",
+            "id": "ID",
+            "name": "Nombre",
+            "category": "Categoría",
+            "price": "Precio",
+            "stock": "Stock",
+            "actions": "Acciones",
+            "edit": "Editar",
+            "delete": "Eliminar",
+            "confirmDelete": "¿Estás seguro de que deseas eliminar este producto?"
+        }
+    }
+}

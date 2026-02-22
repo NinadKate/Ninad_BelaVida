@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { COUNTRIES } from "@/constants/countries";
 
 interface Category {
     id: number;
@@ -13,6 +14,7 @@ interface Product {
     slug: string;
     sku?: string;
     price: string | number;
+    prices: Record<string, string | number>;
     name: Record<string, string>;
     description: Record<string, string>;
     categoryId: number;
@@ -37,6 +39,7 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
         slug: "",
         sku: "",
         price: "",
+        prices: {},
         name: { "es-CL": "", "en": "" },
         description: { "es-CL": "", "en": "" },
         categoryId: categories[0]?.id || 1,
@@ -168,7 +171,7 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium mb-1">Price (CLP)</label>
+                                <label className="block text-sm font-medium mb-1">Base Price (Global)</label>
                                 <input
                                     type="number"
                                     value={formData.price}
@@ -187,6 +190,29 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
                                     required
                                 />
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="border-t pt-4">
+                        <h3 className="font-bold mb-2">Regional Pricing</h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {COUNTRIES.map(country => (
+                                <div key={country.code}>
+                                    <label className="block text-[10px] font-bold uppercase text-neutral-500 mb-1">
+                                        {country.flag} {country.name} ({country.currency})
+                                    </label>
+                                    <input
+                                        type="number"
+                                        value={formData.prices?.[country.currency] || ""}
+                                        onChange={e => setFormData(prev => ({
+                                            ...prev,
+                                            prices: { ...prev.prices, [country.currency]: e.target.value }
+                                        }))}
+                                        placeholder={formData.price.toString()}
+                                        className="w-full border rounded p-2 text-sm"
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
 

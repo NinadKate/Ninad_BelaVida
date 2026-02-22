@@ -2,8 +2,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "@/i18n/routing";
 import { AuthOptions } from "next-auth";
+import { useTranslations } from 'next-intl';
 
 export default async function AccountPage() {
+    const t = useTranslations('Account');
     const session = await getServerSession(authOptions as AuthOptions);
 
     if (!session) {
@@ -22,15 +24,15 @@ export default async function AccountPage() {
     if (!session) {
         return (
             <div className="container mx-auto px-4 py-20 text-center">
-                <p className="mb-4">You are not logged in.</p>
-                <a href="/login" className="text-brand-red underline">Go to Login</a>
+                <p className="mb-4">{t('notLoggedIn')}</p>
+                <a href="/login" className="text-brand-red underline">{t('goToLogin')}</a>
             </div>
         );
     }
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold font-heading mb-6 text-neutral-dark">My Account</h1>
+            <h1 className="text-3xl font-bold font-heading mb-6 text-neutral-dark">{t('title')}</h1>
             <div className="bg-white p-6 rounded-2xl shadow-lg border border-neutral-med">
                 <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center text-brand-red text-2xl font-bold">
@@ -43,8 +45,8 @@ export default async function AccountPage() {
                 </div>
 
                 <div className="border-t border-neutral-med pt-6">
-                    <h3 className="text-lg font-bold mb-4 text-neutral-dark">Order History</h3>
-                    <p className="text-neutral-500 italic">No orders yet.</p>
+                    <h3 className="text-lg font-bold mb-4 text-neutral-dark">{t('orderHistory')}</h3>
+                    <p className="text-neutral-500 italic">{t('noOrders')}</p>
                 </div>
             </div>
         </div>

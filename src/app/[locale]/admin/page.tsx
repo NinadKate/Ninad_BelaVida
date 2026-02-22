@@ -7,6 +7,7 @@ import { redirect } from "@/i18n/routing";
 import { formatCurrency } from "@/lib/utils";
 import AdminProducts from "@/components/admin/AdminProducts";
 import { AuthOptions } from "next-auth";
+import { useTranslations } from 'next-intl';
 
 export default async function AdminDashboard({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ tab?: string }> }) {
     const { locale } = await params;
@@ -24,6 +25,7 @@ export default async function AdminDashboard({ params, searchParams }: { params:
         }
     }
 
+    const t = useTranslations('Admin');
     const currentTab = tab || 'orders';
 
     // Fetch data based on tab? Or just fetch all necessary for simple dashboard.
@@ -42,13 +44,13 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                     href={`/${locale}/admin?tab=orders`}
                     className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'orders' ? 'border-brand-red text-brand-red' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
                 >
-                    Orders
+                    {t('tabs.orders')}
                 </a>
                 <a
                     href={`/${locale}/admin?tab=products`}
                     className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'products' ? 'border-brand-red text-brand-red' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
                 >
-                    Products
+                    {t('tabs.products')}
                 </a>
             </div>
 
@@ -57,12 +59,12 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                     <table className="w-full text-left">
                         <thead className="bg-neutral-soft border-b border-neutral-med">
                             <tr>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Order ID</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Date</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Customer</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Status</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Total</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">Action</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.id')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.date')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.customer')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.status')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.total')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.action')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-neutral-med">
@@ -90,14 +92,14 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                                             {formatCurrency(order.total, order.currency, locale)}
                                         </td>
                                         <td className="p-4">
-                                            <button className="text-brand-red hover:underline text-sm font-medium">View</button>
+                                            <button className="text-brand-red hover:underline text-sm font-medium">{t('orders.view')}</button>
                                         </td>
                                     </tr>
                                 );
                             })}
                             {allOrders.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="p-8 text-center text-neutral-500 italic">No orders found.</td>
+                                    <td colSpan={6} className="p-8 text-center text-neutral-500 italic">{t('orders.noOrders')}</td>
                                 </tr>
                             )}
                         </tbody>

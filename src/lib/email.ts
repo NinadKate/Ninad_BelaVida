@@ -10,7 +10,7 @@ export async function sendOrderNotification(orderId: number, total: number, curr
 
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Bella Vida <onboarding@resend.dev>', // Use registered domain in prod
+            from: 'Bela Vida <onboarding@resend.dev>', // Use registered domain in prod
             to: ['admin@bellavida.cl'], // Send to admin
             subject: `New Order #${orderId}`,
             html: `

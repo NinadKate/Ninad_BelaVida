@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { formatCurrency } from "@/lib/utils";
+import { COUNTRIES } from "@/constants/countries";
 
 const checkoutSchema = z.object({
     fullName: z.string().min(2, "Name is required"),
@@ -128,12 +129,29 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Country</label>
-                                    <input {...form.register("country")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
+                                    <select
+                                        {...form.register("country")}
+                                        className="w-full px-4 py-2 rounded-lg border border-neutral-med bg-white"
+                                    >
+                                        <option value="">Select Country</option>
+                                        {COUNTRIES.map(c => (
+                                            <option key={c.code} value={c.name}>{c.name}</option>
+                                        ))}
+                                    </select>
                                     {form.formState.errors.country && <p className="text-red-500 text-xs mt-1">{form.formState.errors.country.message}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Phone</label>
-                                    <input {...form.register("phone")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
+                                    <div className="relative">
+                                        {form.watch("country") === "India" && (
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">+91</span>
+                                        )}
+                                        <input
+                                            {...form.register("phone")}
+                                            placeholder={form.watch("country") === "India" ? "98765-43210" : "Phone number"}
+                                            className={`w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none transition-all ${form.watch("country") === "India" ? "pl-12" : ""}`}
+                                        />
+                                    </div>
                                     {form.formState.errors.phone && <p className="text-red-500 text-xs mt-1">{form.formState.errors.phone.message}</p>}
                                 </div>
                             </div>

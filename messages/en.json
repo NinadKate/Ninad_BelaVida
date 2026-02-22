@@ -1,1 +1,64 @@
-{"Common": {"title": "BELLA VIDA", "description": "Beauty through Science"}, "Header": {"search": "Search", "account": "My Account", "cart": "Cart"}, "Hero": {"tagline": "Dermatological Innovation", "title": "Your skin, our inspiration", "subtitle": "Discover advanced formulas designed to protect and restore your skin’s natural health, every day.", "discover": "Discover products", "routines": "View routines"}}
+{
+    "Common": {
+        "title": "Bela Vida",
+        "description": "Beauty through Science"
+    },
+    "Header": {
+        "search": "Search",
+        "account": "My Account",
+        "cart": "Cart"
+    },
+    "Hero": {
+        "tagline": "Dermatological Innovation",
+        "title": "Your skin, our inspiration",
+        "subtitle": "Discover advanced formulas designed to protect and restore your skin’s natural health, every day.",
+        "discover": "Discover products",
+        "routines": "View routines"
+    },
+    "Navbar": {
+        "solar": "Solar",
+        "facial": "Facial",
+        "corporal": "Body Care",
+        "atopic": "Atopic Skin",
+        "catalog": "Catalog",
+        "fullCatalog": "Full Catalog",
+        "noProducts": "No products available at the moment."
+    },
+    "Account": {
+        "title": "My Account",
+        "notLoggedIn": "You are not logged in.",
+        "goToLogin": "Go to Login",
+        "orderHistory": "Order History",
+        "noOrders": "No orders yet."
+    },
+    "Admin": {
+        "title": "Admin Dashboard",
+        "tabs": {
+            "orders": "Orders",
+            "products": "Products"
+        },
+        "orders": {
+            "id": "Order ID",
+            "date": "Date",
+            "customer": "Customer",
+            "status": "Status",
+            "total": "Total",
+            "action": "Action",
+            "view": "View",
+            "noOrders": "No orders found."
+        },
+        "products": {
+            "title": "Products",
+            "add": "Add Product",
+            "id": "ID",
+            "name": "Name",
+            "category": "Category",
+            "price": "Price",
+            "stock": "Stock",
+            "actions": "Actions",
+            "edit": "Edit",
+            "delete": "Delete",
+            "confirmDelete": "Are you sure you want to delete this product?"
+        }
+    }
+}

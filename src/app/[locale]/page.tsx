@@ -3,7 +3,7 @@ import Image from "next/image";
 import ProductCard from "@/components/ui/ProductCard";
 import { getTranslations } from 'next-intl/server';
 import { getFeaturedProducts, getProductsByCategory, getAllCategories } from "@/lib/db/queries";
-import { getLocalized, formatCurrency } from "@/lib/utils";
+import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -51,7 +51,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="hidden md:block relative h-[600px] animate-in fade-in zoom-in duration-1000">
             <Image
               src="/hero-skincare.png" // This should ideally be a dynamic hero image
-              alt="BELLA VIDA Premium Skincare"
+              alt="BELA VIDA Premium Skincare"
               fill
               className="object-contain"
               priority
@@ -100,17 +100,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <Link key={product.id} href={`/products/${(product as any).category.slug}/${product.slug}`}>
-                {/* Reuse ProductCard but need to map properties correctly */}
-                <ProductCard
-                  name={getLocalized(product.name, locale)}
-                  category={getLocalized((product as any).category.name, locale)}
-                  price={formatCurrency(product.price, "CLP", locale)}
-                  imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
-                />
-              </Link>
-            ))}
+            {featuredProducts.map((product) => {
+              const regionalPrice = getRegionalPrice(product, locale);
+              return (
+                <Link key={product.id} href={`/products/${(product as any).category.slug}/${product.slug}`}>
+                  <ProductCard
+                    name={getLocalized(product.name, locale)}
+                    category={getLocalized((product as any).category.name, locale)}
+                    price={formatCurrency(regionalPrice.amount, regionalPrice.currency, locale)}
+                    imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
+                  />
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
