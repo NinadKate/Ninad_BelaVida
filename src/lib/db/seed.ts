@@ -1,11 +1,21 @@
 import "dotenv/config";
-import { neon } from "@neondatabase/serverless";
-import { drizzle } from "drizzle-orm/neon-http";
+import { neonConfig, Pool } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-serverless";
 import * as schema from "./schema";
 import seedData from "./seed-data.json";
+import ws from "ws";
 
-const sql = neon(process.env.DATABASE_URL!);
-const db = drizzle(sql, { schema });
+neonConfig.webSocketConstructor = ws;
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is not set");
+}
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+const db = drizzle(pool, { schema });
 
 async function main() {
   console.log("Seeding database...");
@@ -16,6 +26,7 @@ async function main() {
     await db.insert(schema.categories).values({
       slug: cat.slug,
       name: cat.name,
+      active: true,
     }).onConflictDoNothing();
   }
 
@@ -27,7 +38,10 @@ async function main() {
   console.log("Seeding products...");
   for (const prod of seedData.products) {
     const categoryId = catMap.get(prod.categorySlug);
-    if (!categoryId) continue;
+    if (!categoryId) {
+      console.warn(`Category not found for product: ${prod.slug} (cat: ${prod.categorySlug})`);
+      continue;
+    }
 
     await db.insert(schema.products).values({
       categoryId,
@@ -41,6 +55,7 @@ async function main() {
   }
 
   console.log("Seeding complete!");
+  process.exit(0);
 }
 
 main().catch((err) => {

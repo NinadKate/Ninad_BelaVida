@@ -5,6 +5,7 @@ import { Search, ShoppingBag, User, Globe, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { COUNTRIES } from "@/constants/countries";
 import { useCartStore } from "@/lib/store/cart";
+import { useSearchStore } from "@/lib/store/search";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from 'next-intl';
 
@@ -14,6 +15,7 @@ export default function Header() {
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const currentCountry = COUNTRIES.find(c => c.locale === locale) || COUNTRIES[0];
   const { itemCount, setIsOpen } = useCartStore();
+  const { openSearch } = useSearchStore();
   const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
@@ -66,8 +68,11 @@ export default function Header() {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-4 text-neutral-dark">
-          <button className="p-2 hover:bg-neutral-soft rounded-full transition-colors group">
+        <div className="flex items-center gap-4 text-neutral-dark" suppressHydrationWarning>
+          <button
+            onClick={openSearch}
+            className="p-2 hover:bg-neutral-soft rounded-full transition-colors group"
+          >
             <Search size={22} className="group-hover:text-brand-red group-hover:scale-110 transition-all" />
           </button>
           <button

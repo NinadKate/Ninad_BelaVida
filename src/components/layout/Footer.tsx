@@ -1,7 +1,16 @@
+"use client";
+
 import { Link } from "@/i18n/routing";
 import { Facebook, Instagram, Twitter, Youtube, Send } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function Footer() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <footer className="bg-neutral-dark text-white pt-20 pb-10">
       <div className="container mx-auto px-4">

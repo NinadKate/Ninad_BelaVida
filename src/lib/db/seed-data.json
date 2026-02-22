@@ -34,9 +34,69 @@
                 "es": "Línea Black Cumin",
                 "en": "Black Cumin Line"
             }
+        },
+        {
+            "slug": "solar",
+            "name": {
+                "es": "Línea Solar",
+                "en": "Solar Line"
+            }
+        },
+        {
+            "slug": "facial",
+            "name": {
+                "es": "Línea Facial",
+                "en": "Facial Line"
+            }
+        },
+        {
+            "slug": "corporal",
+            "name": {
+                "es": "Línea Corporal",
+                "en": "Body Line"
+            }
         }
     ],
     "products": [
+        {
+            "categorySlug": "solar",
+            "slug": "bloqueador-solar-50",
+            "price": 12990,
+            "name": {
+                "es": "Bloqueador Solar FPS 50+",
+                "en": "Sunscreen SPF 50+"
+            },
+            "description": {
+                "es": "Protección alta contra rayos UV.",
+                "en": "High protection against UV rays."
+            }
+        },
+        {
+            "categorySlug": "facial",
+            "slug": "serum-facial-hidratante",
+            "price": 18990,
+            "name": {
+                "es": "Serum Facial Hidratante",
+                "en": "Hydrating Face Serum"
+            },
+            "description": {
+                "es": "Hidratación profunda para tu rostro.",
+                "en": "Deep hydration for your face."
+            }
+        },
+        {
+            "categorySlug": "corporal",
+            "slug": "crema-corporal-nutritiva",
+            "price": 14500,
+            "name": {
+                "es": "Crema Corporal Nutritiva",
+                "en": "Nourishing Body Cream"
+            },
+            "description": {
+                "es": "Nutrición intensa para todo el cuerpo.",
+                "en": "Intense nutrition for the whole body."
+            }
+        },
         {
             "categorySlug": "urea",
             "slug": "locion-hidratante-urea-950ml",

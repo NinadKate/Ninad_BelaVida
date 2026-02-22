@@ -9,6 +9,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import NextAuthProvider from "@/components/providers/NextAuthProvider";
 import CartDrawer from "@/components/cart/CartDrawer";
+import SearchModal from "@/components/layout/SearchModal";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -52,6 +53,7 @@ export default async function RootLayout({
           <NextAuthProvider>
             <Header />
             <CartDrawer locale={locale} />
+            <SearchModal />
             <main className="flex-grow">
               {children}
             </main>

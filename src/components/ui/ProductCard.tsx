@@ -33,7 +33,7 @@ export default function ProductCard({ name, category, price, imageUrl }: Product
           {name}
         </h3>
         <div className="flex items-center justify-between pt-2">
-          <span className="text-lg font-heading font-bold text-neutral-dark">
+          <span className="text-lg font-heading font-bold text-neutral-dark" suppressHydrationWarning>
             {price}
           </span>
           <span className="text-[10px] text-neutral-400 font-medium">

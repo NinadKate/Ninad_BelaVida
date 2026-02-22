@@ -1,33 +1,24 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { redirect } from "@/i18n/routing";
-import { AuthOptions } from "next-auth";
-import { useTranslations } from 'next-intl';
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { Link } from "@/i18n/routing";
+import { redirect } from "next/navigation";
+import { getTranslations } from 'next-intl/server';
+import LogoutButton from "@/components/auth/LogoutButton";
 
-export default async function AccountPage() {
-    const t = useTranslations('Account');
-    const session = await getServerSession(authOptions as AuthOptions);
-
-    if (!session) {
-        redirect({ href: '/login', locale: 'es-CL' }); // Redirect requires locale if using navigation wrapper?
-        // Wait, redirect(url) checks context? 
-        // next-intl `redirect` signature: `redirect({href, locale})` or `redirect(href)` if inside localized context?
-        // Actually the `redirect` exported from `createNavigation` is valid for Server Components but might behave differently.
-        // Usually we just use standard `redirect` from `next/navigation` and prepend locale if we know it.
-        // But here we are inside [locale] layout, so we don't easy access to locale unless we take params.
-    }
-
-    // Let's use standard Next.js redirect for simplicity if not sure about next-intl server integration specifics without params.
-    // But better to simply show "Please log in" or client side redirect.
-    // I'll assume session valid for now or let middleware handle protection (I haven't set up middleware protection).
+export default async function AccountPage({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}) {
+    const { locale } = await params;
+    const t = await getTranslations('Account');
+    const session = await getServerSession(authOptions);
 
     if (!session) {
-        return (
-            <div className="container mx-auto px-4 py-20 text-center">
-                <p className="mb-4">{t('notLoggedIn')}</p>
-                <a href="/login" className="text-brand-red underline">{t('goToLogin')}</a>
-            </div>
-        );
+        redirect(`/${locale}/login`);
     }
 
     return (
@@ -38,9 +29,14 @@ export default async function AccountPage() {
                     <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center text-brand-red text-2xl font-bold">
                         {session.user?.name?.[0] || 'U'}
                     </div>
-                    <div>
+                    <div className="flex-1">
                         <h2 className="text-xl font-bold text-neutral-dark">{session.user?.name}</h2>
                         <p className="text-neutral-500">{session.user?.email}</p>
+                    </div>
+                    {/* Admin Link Check */}
+                    <div className="flex flex-col gap-2">
+                        <AdminLink email={session.user?.email} />
+                        <LogoutButton />
                     </div>
                 </div>
 
@@ -51,4 +47,20 @@ export default async function AccountPage() {
             </div>
         </div>
     );
+}
+
+async function AdminLink({ email }: { email?: string | null }) {
+    if (!email) return null;
+    const user = await db.query.users.findFirst({
+        where: eq(users.email, email)
+    });
+
+    if (user?.role === 'admin') {
+        return (
+            <Link href="/admin" className="btn-premium bg-neutral-dark text-white hover:bg-black">
+                Admin Dashboard
+            </Link>
+        );
+    }
+    return null;
 }

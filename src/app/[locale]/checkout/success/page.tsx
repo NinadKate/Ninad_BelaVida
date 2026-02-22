@@ -1,8 +1,10 @@
-export default function CheckoutSuccessPage({
+export default async function CheckoutSuccessPage({
     searchParams,
 }: {
-    searchParams: { orderId: string };
+    searchParams: Promise<{ orderId: string }>;
 }) {
+    const { orderId } = await searchParams;
+
     return (
         <div className="container mx-auto px-4 py-20 text-center">
             <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -12,7 +14,7 @@ export default function CheckoutSuccessPage({
             </div>
             <h1 className="text-3xl font-bold font-heading mb-4 text-neutral-dark">Order Placed Successfully!</h1>
             <p className="text-neutral-500 mb-8">
-                Thank you for your purchase. Your order ID is <span className="font-mono font-bold text-neutral-dark">#{searchParams.orderId}</span>.
+                Thank you for your purchase. Your order ID is <span className="font-mono font-bold text-neutral-dark">#{orderId}</span>.
             </p>
             <p className="text-neutral-500 mb-8 max-w-md mx-auto">
                 We will contact you shortly to confirm shipping details.

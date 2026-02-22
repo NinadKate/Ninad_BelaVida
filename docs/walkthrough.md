@@ -29,15 +29,7 @@ Implemented Google OAuth for seamless user onboarding.
 - **UI**: Added "Sign in with Google" and "Sign up with Google" buttons on Login and Register pages.
 - **Flow**: Supports both Sign Up (account creation) and Sign In.
 
-### 4. Database Reliability
-
-Switched from `neon-http` to standard `node-postgres` (`pg`) with connection pooling.
-
-**Features:**
-- **Reliability**: Using TCP connections via `pg` Pool reduces `fetch failed` and `ConnectTimeoutError` issues common in local development.
-- **Performance**: Introduced a connection pool to manage concurrent database requests efficiently.
-
-## 5. UI/UX Refinements
+## 4. UI/UX Refinements
 
 Polished the application and connected the Homepage to real data.
 

@@ -10,8 +10,8 @@ export async function sendOrderNotification(orderId: number, total: number, curr
 
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Bela Vida <onboarding@resend.dev>', // Use registered domain in prod
-            to: ['admin@bellavida.cl'], // Send to admin
+            from: 'Bella Vida <onboarding@resend.dev>',
+            to: ['kinesis.it2025@gmail.com'], // Restricted to verified email in Resend free tier
             subject: `New Order #${orderId}`,
             html: `
         <h1>New Order Received</h1>

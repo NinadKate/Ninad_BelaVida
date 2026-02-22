@@ -81,7 +81,7 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
                                     <td className="p-4 text-sm text-neutral-600">
                                         {cat?.name[locale] || cat?.name['es-CL'] || '-'}
                                     </td>
-                                    <td className="p-4 text-sm font-bold">
+                                    <td className="p-4 text-sm font-bold" suppressHydrationWarning>
                                         {formatCurrency(product.price, "CLP", locale)}
                                     </td>
                                     <td className="p-4 text-sm">
