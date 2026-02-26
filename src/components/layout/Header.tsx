@@ -63,7 +63,7 @@ export default function Header() {
         {/* Center: Logo */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link href="/" className="text-2xl font-bold tracking-tighter flex items-center gap-1 group">
-            <span className="bg-brand-red text-white px-2 py-0.5 rounded italic transition-transform group-hover:scale-110">B</span>
+            <img src="/belavida_logo.png" alt="Bela Vida Logo" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
             <span className="text-neutral-dark uppercase tracking-tight">Bela Vida</span>
           </Link>
         </div>
@@ -73,6 +73,7 @@ export default function Header() {
           <button
             onClick={openSearch}
             className="p-2 hover:bg-neutral-soft rounded-full transition-colors group"
+            suppressHydrationWarning
           >
             <Search size={22} className="group-hover:text-brand-red group-hover:scale-110 transition-all" />
           </button>
