@@ -41,13 +41,13 @@ export default async function AdminDashboard({ params, searchParams }: { params:
             <div className="flex gap-4 mb-8 border-b border-neutral-med">
                 <a
                     href={`/${locale}/admin?tab=orders`}
-                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'orders' ? 'border-brand-red text-brand-red' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
+                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'orders' ? 'border-brand-green text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
                 >
                     {t('tabs.orders')}
                 </a>
                 <a
                     href={`/${locale}/admin?tab=products`}
-                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'products' ? 'border-brand-red text-brand-red' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
+                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'products' ? 'border-brand-green text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
                 >
                     {t('tabs.products')}
                 </a>
@@ -91,7 +91,7 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                                             {formatCurrency(order.total, order.currency, locale)}
                                         </td>
                                         <td className="p-4">
-                                            <button className="text-brand-red hover:underline text-sm font-medium">{t('orders.view')}</button>
+                                            <button className="text-brand-green hover:underline text-sm font-medium">{t('orders.view')}</button>
                                         </td>
                                     </tr>
                                 );

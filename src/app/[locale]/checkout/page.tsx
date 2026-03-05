@@ -52,7 +52,7 @@ export default function CheckoutPage({ locale }: { locale: string }) {
         return (
             <div className="container mx-auto px-4 py-20 text-center">
                 <h1 className="text-2xl font-bold mb-4">Your cart is empty</h1>
-                <button onClick={() => router.push('/')} className="text-brand-red font-bold hover:underline">
+                <button onClick={() => router.push('/')} className="text-brand-green font-bold hover:underline">
                     Continue Shopping
                 </button>
             </div>
@@ -106,26 +106,26 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Full Name</label>
                                     <input {...form.register("fullName")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
-                                    {form.formState.errors.fullName && <p className="text-red-500 text-xs mt-1">{form.formState.errors.fullName.message}</p>}
+                                    {form.formState.errors.fullName && <p className="text-green-500 text-xs mt-1">{form.formState.errors.fullName.message}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Email</label>
                                     <input {...form.register("email")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
-                                    {form.formState.errors.email && <p className="text-red-500 text-xs mt-1">{form.formState.errors.email.message}</p>}
+                                    {form.formState.errors.email && <p className="text-green-500 text-xs mt-1">{form.formState.errors.email.message}</p>}
                                 </div>
                             </div>
 
                             <div>
                                 <label className="block text-sm font-medium mb-1">Address</label>
                                 <input {...form.register("address")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
-                                {form.formState.errors.address && <p className="text-red-500 text-xs mt-1">{form.formState.errors.address.message}</p>}
+                                {form.formState.errors.address && <p className="text-green-500 text-xs mt-1">{form.formState.errors.address.message}</p>}
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium mb-1">City</label>
                                     <input {...form.register("city")} className="w-full px-4 py-2 rounded-lg border border-neutral-med" />
-                                    {form.formState.errors.city && <p className="text-red-500 text-xs mt-1">{form.formState.errors.city.message}</p>}
+                                    {form.formState.errors.city && <p className="text-green-500 text-xs mt-1">{form.formState.errors.city.message}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Country</label>
@@ -138,7 +138,7 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                                             <option key={c.code} value={c.name}>{c.name}</option>
                                         ))}
                                     </select>
-                                    {form.formState.errors.country && <p className="text-red-500 text-xs mt-1">{form.formState.errors.country.message}</p>}
+                                    {form.formState.errors.country && <p className="text-green-500 text-xs mt-1">{form.formState.errors.country.message}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Phone</label>
@@ -149,15 +149,15 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                                         <input
                                             {...form.register("phone")}
                                             placeholder={form.watch("country") === "India" ? "98765-43210" : "Phone number"}
-                                            className={`w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none transition-all ${form.watch("country") === "India" ? "pl-12" : ""}`}
+                                            className={`w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none transition-all ${form.watch("country") === "India" ? "pl-12" : ""}`}
                                         />
                                     </div>
-                                    {form.formState.errors.phone && <p className="text-red-500 text-xs mt-1">{form.formState.errors.phone.message}</p>}
+                                    {form.formState.errors.phone && <p className="text-green-500 text-xs mt-1">{form.formState.errors.phone.message}</p>}
                                 </div>
                             </div>
 
                             {error && (
-                                <div className="p-3 bg-red-50 text-brand-red rounded-lg text-sm">
+                                <div className="p-3 bg-green-50 text-brand-green rounded-lg text-sm">
                                     {error}
                                 </div>
                             )}
@@ -165,7 +165,7 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full btn-premium bg-brand-red text-white hover:bg-brand-red-dark mt-4 disabled:opacity-70"
+                                className="w-full btn-premium bg-brand-green text-white hover:bg-brand-green-dark mt-4 disabled:opacity-70"
                             >
                                 {isSubmitting ? "Processing..." : "Place Order"}
                             </button>

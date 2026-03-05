@@ -25,9 +25,9 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Email address"
-                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-sm flex-1 focus:outline-none focus:border-brand-red transition-colors"
+                className="bg-white/10 border border-white/20 rounded-lg px-4 py-2 text-sm flex-1 focus:outline-none focus:border-brand-green transition-colors"
               />
-              <button className="bg-white text-neutral-dark p-2 rounded-lg hover:bg-brand-red hover:text-white transition-all group">
+              <button className="bg-white text-neutral-dark p-2 rounded-lg hover:bg-brand-green hover:text-white transition-all group">
                 <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
             </div>
@@ -59,16 +59,16 @@ export default function Footer() {
           <div>
             <h4 className="font-bold text-sm uppercase tracking-widest mb-6">Síguenos</h4>
             <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-red hover:border-brand-red transition-all group">
+              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all group">
                 <Instagram size={20} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-red hover:border-brand-red transition-all group">
+              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all group">
                 <Facebook size={20} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-red hover:border-brand-red transition-all group">
+              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all group">
                 <Twitter size={20} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-red hover:border-brand-red transition-all group">
+              <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all group">
                 <Youtube size={20} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>

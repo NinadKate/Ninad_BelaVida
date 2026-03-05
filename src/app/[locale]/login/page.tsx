@@ -39,7 +39,7 @@ export default function LoginPage() {
                 <h1 className="text-2xl font-bold font-heading mb-6 text-center text-neutral-dark">Login to your account</h1>
 
                 {error && (
-                    <div className="mb-4 p-3 bg-red-50 text-brand-red text-sm rounded-lg border border-red-100">
+                    <div className="mb-4 p-3 bg-green-50 text-brand-green text-sm rounded-lg border border-green-100">
                         {error}
                     </div>
                 )}
@@ -51,7 +51,7 @@ export default function LoginPage() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
@@ -61,14 +61,14 @@ export default function LoginPage() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full px-6 py-3 bg-brand-red text-white font-bold rounded-full hover:bg-brand-red-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full px-6 py-3 bg-brand-green text-white font-bold rounded-full hover:bg-brand-green-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                         {loading ? "Signing in..." : "Sign In"}
                     </button>
@@ -109,7 +109,7 @@ export default function LoginPage() {
                     </button>
                 </form>
                 <div className="mt-6 text-center text-sm">
-                    Don't have an account? <Link href="/register" className="text-brand-red font-bold hover:underline">Sign up</Link>
+                    Don't have an account? <Link href="/register" className="text-brand-green font-bold hover:underline">Sign up</Link>
                 </div>
             </div>
         </div>

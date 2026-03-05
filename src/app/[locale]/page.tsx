@@ -20,7 +20,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="relative h-[80vh] w-full flex items-center bg-neutral-soft overflow-hidden">
         <div className="container mx-auto px-4 z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="animate-in fade-in slide-in-from-left-8 duration-700">
-            <span className="text-brand-red font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-4 block">
+            <span className="text-brand-green font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-4 block">
               {t('tagline')}
             </span>
             <h1 className="text-5xl md:text-7xl font-bold text-neutral-dark mb-6 leading-tight">
@@ -35,7 +35,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/products/solar"
-                className="btn-premium bg-brand-red text-white hover:bg-brand-red-dark shadow-lg shadow-brand-red/20 text-center"
+                className="btn-premium bg-brand-green text-white hover:bg-brand-green-dark shadow-lg shadow-brand-green/20 text-center"
               >
                 {t('discover')}
               </Link>
@@ -70,7 +70,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2 className="text-3xl font-bold text-neutral-dark mb-2">Nuestras Líneas</h2>
             <p className="text-neutral-500">Encuentra el cuidado perfecto para tus necesidades.</p>
           </div>
-          <Link href="/products" className="text-neutral-dark font-medium underline underline-offset-4 hover:text-brand-red transition-colors">
+          <Link href="/products" className="text-neutral-dark font-medium underline underline-offset-4 hover:text-brand-green transition-colors">
             Ver todo el catálogo
           </Link>
         </div>
@@ -83,7 +83,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
 
               <div className="absolute bottom-6 left-6 z-20">
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-red transition-colors">{getLocalized(cat.name, locale)}</h3>
+                <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">{getLocalized(cat.name, locale)}</h3>
                 <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">Explorar &rarr;</span>
               </div>
             </Link>
@@ -96,7 +96,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-neutral-dark mb-4 tracking-tight">Recomendados para ti</h2>
-            <div className="w-20 h-1 bg-brand-red mx-auto rounded-full" />
+            <div className="w-20 h-1 bg-brand-green mx-auto rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

@@ -49,22 +49,41 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
 
     const isEdit = !!product?.id;
 
+    // Auto-generate URL-friendly slug from any string
+    const slugify = (str: string) =>
+        str.toLowerCase().trim()
+            .replace(/[áàäâ]/g, 'a').replace(/[éèëê]/g, 'e')
+            .replace(/[íìïî]/g, 'i').replace(/[óòöô]/g, 'o')
+            .replace(/[úùüû]/g, 'u').replace(/ñ/g, 'n')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+
     const handleChange = (field: string, value: any) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
     const handleNestedChange = (field: 'name' | 'description', locale: string, value: string) => {
-        setFormData(prev => ({
-            ...prev,
-            [field]: { ...prev[field], [locale]: value }
-        }));
+        setFormData(prev => {
+            const updated = { ...prev, [field]: { ...prev[field], [locale]: value } };
+            // Auto-generate slug from Spanish name when creating a new product
+            if (!isEdit && field === 'name' && locale === 'es-CL') {
+                updated.slug = slugify(value);
+            }
+            return updated;
+        });
     };
 
     const [uploading, setUploading] = useState(false);
+    const [previewUrl, setPreviewUrl] = useState<string>(product?.images?.[0] || "");
 
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file) return;
+
+        // Show local preview immediately
+        const localUrl = URL.createObjectURL(file);
+        setPreviewUrl(localUrl);
 
         setUploading(true);
         try {
@@ -90,11 +109,12 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
 
             if (!uploadRes.ok) throw new Error("Failed to upload file");
 
-            // 3. Update form
+            // 3. Update form with R2 public URL (used when saving the product)
             setFormData(prev => ({ ...prev, images: [publicUrl] }));
         } catch (err) {
             console.error(err);
             setError("Image upload failed");
+            setPreviewUrl(""); // Clear preview on error
         } finally {
             setUploading(false);
         }
@@ -109,8 +129,8 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
             const method = isEdit ? "PUT" : "POST";
             const body = isEdit ? { ...formData, id: product?.id } : formData;
 
-            // Clean up empty images
-            body.images = body.images.filter(img => img.trim() !== "");
+            // Clean up empty images safely (images can be null for existing products)
+            body.images = (body.images || []).filter((img: string) => img && img.trim() !== "");
 
             const res = await fetch("/api/products", {
                 method,
@@ -133,16 +153,20 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
             <div className="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
                 <h2 className="text-2xl font-bold mb-6">{isEdit ? "Edit Product" : "New Product"}</h2>
 
-                {error && <div className="bg-red-50 text-red-500 p-3 rounded mb-4">{error}</div>}
+                {error && <div className="bg-red-50 text-red-600 border border-red-200 p-3 rounded mb-4">{error}</div>}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium mb-1">Slug</label>
+                            <label className="block text-sm font-medium mb-1">
+                                Slug
+                                {!isEdit && <span className="text-[10px] text-neutral-400 ml-1">(auto-generated from Spanish name)</span>}
+                            </label>
                             <input
                                 value={formData.slug}
-                                onChange={e => handleChange("slug", e.target.value)}
-                                className="w-full border rounded p-2"
+                                onChange={e => handleChange("slug", slugify(e.target.value))}
+                                className="w-full border rounded p-2 font-mono text-sm"
+                                placeholder="e.g. crema-facial-hidratante"
                                 required
                             />
                         </div>
@@ -259,21 +283,21 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
                     <div>
                         <label className="block text-sm font-medium mb-1">Product Image</label>
                         <div className="flex gap-4 items-center">
-                            {formData.images[0] && (
-                                <img src={formData.images[0]} alt="Preview" className="w-16 h-16 object-cover rounded border" />
+                            {previewUrl && (
+                                <img src={previewUrl} alt="Preview" className="w-16 h-16 object-cover rounded border" />
                             )}
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleFileChange}
-                                className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-red/10 file:text-brand-red hover:file:bg-brand-red/20"
+                                className="block w-full text-sm text-neutral-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-gray-800 cursor-pointer"
                                 disabled={uploading}
                             />
                             {uploading && <span className="text-xs text-neutral-500">Uploading...</span>}
                         </div>
                         {/* Fallback URL input */}
                         <input
-                            value={formData.images[0] || ""}
+                            value={formData.images?.[0] || ""}
                             onChange={e => setFormData(p => ({ ...p, images: [e.target.value] }))}
                             className="w-full border rounded p-2 mt-2 text-xs text-neutral-400"
                             placeholder="Or enter image URL directly"
@@ -291,7 +315,7 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="px-4 py-2 bg-brand-red text-white rounded hover:bg-brand-red-dark disabled:opacity-50"
+                            className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 disabled:opacity-50"
                         >
                             {isSubmitting ? "Saving..." : "Save Product"}
                         </button>

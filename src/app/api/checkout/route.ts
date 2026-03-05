@@ -31,11 +31,11 @@ export async function POST(req: Request) {
             }
         }
 
-        // 2. Validate Products & IDs
+        // 2. Validate Products & IDs — fetch name and sku for the email
         const productIds = items.map((item: any) => item.id);
         const validProducts = await db.query.products.findMany({
             where: inArray(products.id, productIds),
-            columns: { id: true, price: true }
+            columns: { id: true, price: true, name: true, sku: true }
         });
 
         const validIds = new Set(validProducts.map((p: any) => p.id));
@@ -47,6 +47,9 @@ export async function POST(req: Request) {
                 error: "Some items in your cart are no longer available. Please clear your cart and try again."
             }, { status: 400 });
         }
+
+        // Build a map for quick lookup
+        const productMap = new Map(validProducts.map((p: any) => [p.id, p]));
 
         // 3. Create Order
         console.log("Creating Order for User:", userId);
@@ -77,9 +80,21 @@ export async function POST(req: Request) {
             });
         }
 
-        // 5. Send Notification
-        // Non-blocking notification
-        sendOrderNotification(newOrder.id, total, "CLP", shippingInfo).catch(err => {
+        // 5. Build enriched items for email (with name + SKU from DB)
+        const emailItems = items.map((item: any) => {
+            const dbProduct = productMap.get(item.id) as any;
+            const name = dbProduct?.name?.[locale] || dbProduct?.name?.['es-CL'] || dbProduct?.name?.['en'] || `Product #${item.id}`;
+            return {
+                name,
+                sku: dbProduct?.sku || undefined,
+                quantity: item.quantity,
+                price: item.price,
+                currency: "CLP",
+            };
+        });
+
+        // 6. Send Notification (non-blocking)
+        sendOrderNotification(newOrder.id, total, "CLP", shippingInfo, emailItems).catch(err => {
             console.error("Failed to send order notification:", err);
         });
 

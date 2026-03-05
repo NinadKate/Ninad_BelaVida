@@ -26,7 +26,7 @@ export default async function AccountPage({
             <h1 className="text-3xl font-bold font-heading mb-6 text-neutral-dark">{t('title')}</h1>
             <div className="bg-white p-6 rounded-2xl shadow-lg border border-neutral-med">
                 <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 bg-brand-red/10 rounded-full flex items-center justify-center text-brand-red text-2xl font-bold">
+                    <div className="w-16 h-16 bg-brand-green/10 rounded-full flex items-center justify-center text-brand-green text-2xl font-bold">
                         {session.user?.name?.[0] || 'U'}
                     </div>
                     <div className="flex-1">

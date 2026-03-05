@@ -19,7 +19,7 @@ export default async function CheckoutSuccessPage({
             <p className="text-neutral-500 mb-8 max-w-md mx-auto">
                 We will contact you shortly to confirm shipping details.
             </p>
-            <a href="/" className="btn-premium bg-brand-red text-white hover:bg-brand-red-dark">
+            <a href="/" className="btn-premium bg-brand-green text-white hover:bg-brand-green-dark">
                 Back to Home
             </a>
         </div>

@@ -67,7 +67,7 @@ export default function SearchModal() {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    {loading && <Loader2 className="animate-spin text-brand-red" size={20} />}
+                    {loading && <Loader2 className="animate-spin text-brand-green" size={20} />}
                     <button
                         onClick={closeSearch}
                         className="p-2 hover:bg-neutral-100 rounded-full transition-colors"
@@ -95,7 +95,7 @@ export default function SearchModal() {
                                         />
                                     </div>
                                     <div className="flex-1">
-                                        <h4 className="font-bold text-neutral-dark group-hover:text-brand-red transition-colors">
+                                        <h4 className="font-bold text-neutral-dark group-hover:text-brand-green transition-colors">
                                             {getLocalized(product.name, locale)}
                                         </h4>
                                         <p className="text-sm text-neutral-400 line-clamp-1">

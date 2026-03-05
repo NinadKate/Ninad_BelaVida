@@ -17,9 +17,10 @@ export default function ProductCard({ name, category, price, imageUrl }: Product
           src={imageUrl}
           alt={name}
           fill
+          unoptimized
           className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
         />
-        <button className="absolute bottom-3 right-3 bg-brand-red text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+        <button className="absolute bottom-3 right-3 bg-brand-green text-white p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
           <Plus size={20} />
         </button>
       </div>
@@ -29,7 +30,7 @@ export default function ProductCard({ name, category, price, imageUrl }: Product
         <span className="text-[10px] uppercase tracking-widest text-neutral-400 font-bold">
           {category}
         </span>
-        <h3 className="text-sm font-bold text-neutral-dark line-clamp-2 min-h-[40px] group-hover:text-brand-red transition-colors">
+        <h3 className="text-sm font-bold text-neutral-dark line-clamp-2 min-h-[40px] group-hover:text-brand-green transition-colors">
           {name}
         </h3>
         <div className="flex items-center justify-between pt-2">

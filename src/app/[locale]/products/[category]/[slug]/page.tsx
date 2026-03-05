@@ -29,6 +29,7 @@ export default async function ProductPage({
                             src={images[0]}
                             alt={getLocalized(product.name, locale)}
                             fill
+                            unoptimized
                             className="object-contain p-8"
                             priority
                         />
@@ -37,8 +38,8 @@ export default async function ProductPage({
                     {images.length > 1 && (
                         <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                             {images.map((img, idx) => (
-                                <div key={idx} className="relative w-20 h-20 bg-white rounded-lg border border-neutral-med overflow-hidden flex-shrink-0 cursor-pointer hover:border-brand-red transition-colors">
-                                    <Image src={img} alt="" fill className="object-contain p-1" />
+                                <div key={idx} className="relative w-20 h-20 bg-white rounded-lg border border-neutral-med overflow-hidden flex-shrink-0 cursor-pointer hover:border-brand-green transition-colors">
+                                    <Image src={img} alt="" fill unoptimized className="object-contain p-1" />
                                 </div>
                             ))}
                         </div>

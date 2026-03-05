@@ -46,7 +46,7 @@ export default function RegisterPage() {
                 <h1 className="text-2xl font-bold font-heading mb-6 text-center text-neutral-dark">Create Account</h1>
 
                 {error && (
-                    <div className="mb-4 p-3 bg-red-50 text-brand-red text-sm rounded-lg border border-red-100">
+                    <div className="mb-4 p-3 bg-green-50 text-brand-green text-sm rounded-lg border border-green-100">
                         {error}
                     </div>
                 )}
@@ -58,7 +58,7 @@ export default function RegisterPage() {
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
@@ -68,7 +68,7 @@ export default function RegisterPage() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
@@ -79,7 +79,7 @@ export default function RegisterPage() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="+56 9 1234 5678"
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
@@ -89,7 +89,7 @@ export default function RegisterPage() {
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="Street, City, Country"
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none min-h-[80px]"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none min-h-[80px]"
                             required
                         />
                     </div>
@@ -99,7 +99,7 @@ export default function RegisterPage() {
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-red focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                             minLength={6}
                         />
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full px-6 py-3 bg-brand-red text-white font-bold rounded-full hover:bg-brand-red-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="w-full px-6 py-3 bg-brand-green text-white font-bold rounded-full hover:bg-brand-green-dark transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                         {loading ? "Creating Account..." : "Sign Up"}
                     </button>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
                     </button>
                 </form>
                 <div className="mt-6 text-center text-sm">
-                    Already have an account? <Link href="/login" className="text-brand-red font-bold hover:underline">Sign in</Link>
+                    Already have an account? <Link href="/login" className="text-brand-green font-bold hover:underline">Sign in</Link>
                 </div>
             </div>
         </div>

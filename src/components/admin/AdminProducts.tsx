@@ -51,7 +51,7 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
                 <h2 className="text-xl font-bold font-heading text-neutral-dark">{t('title')}</h2>
                 <button
                     onClick={() => { setEditingProduct(null); setIsFormOpen(true); }}
-                    className="bg-brand-red text-white px-4 py-2 rounded-lg font-bold hover:bg-brand-red-dark transition-colors"
+                    className="bg-black text-white px-4 py-2 rounded-lg font-bold hover:bg-gray-800 transition-colors"
                 >
                     + {t('add')}
                 </button>

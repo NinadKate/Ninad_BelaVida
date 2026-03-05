@@ -57,14 +57,14 @@ export default function CartDrawer({ locale }: { locale: string }) {
                             <p className="text-neutral-500 font-medium">Your cart is empty</p>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="text-brand-red font-bold hover:underline"
+                                className="text-brand-green font-bold hover:underline"
                             >
                                 Continue Shopping
                             </button>
                         </div>
                     ) : (
                         items.map((item) => (
-                            <div key={item.id} className="flex gap-4 p-4 border border-neutral-med rounded-xl hover:border-brand-red/30 transition-colors">
+                            <div key={item.id} className="flex gap-4 p-4 border border-neutral-med rounded-xl hover:border-brand-green/30 transition-colors">
                                 <div className="relative w-20 h-20 bg-neutral-soft rounded-lg overflow-hidden flex-shrink-0">
                                     <Image
                                         src={item.image}
@@ -78,7 +78,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
                                         <h3 className="font-bold text-sm text-neutral-dark line-clamp-2">{item.name}</h3>
                                         <button
                                             onClick={() => removeItem(item.id)}
-                                            className="text-neutral-400 hover:text-brand-red transition-colors"
+                                            className="text-neutral-400 hover:text-brand-green transition-colors"
                                         >
                                             <X className="w-4 h-4" />
                                         </button>
@@ -88,14 +88,14 @@ export default function CartDrawer({ locale }: { locale: string }) {
                                         <div className="flex items-center gap-3 bg-neutral-soft rounded-full px-2 py-1">
                                             <button
                                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                className="p-1 hover:text-brand-red transition-colors"
+                                                className="p-1 hover:text-brand-green transition-colors"
                                             >
                                                 <Minus className="w-3 h-3" />
                                             </button>
                                             <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
                                             <button
                                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                                className="p-1 hover:text-brand-red transition-colors"
+                                                className="p-1 hover:text-brand-green transition-colors"
                                             >
                                                 <Plus className="w-3 h-3" />
                                             </button>
@@ -122,7 +122,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
                                 setIsOpen(false);
                                 router.push("/checkout");
                             }}
-                            className="w-full btn-premium bg-brand-red text-white hover:bg-brand-red-dark shadow-lg shadow-brand-red/20"
+                            className="w-full btn-premium bg-brand-green text-white hover:bg-brand-green-dark shadow-lg shadow-brand-green/20"
                         >
                             Checkout
                         </button>

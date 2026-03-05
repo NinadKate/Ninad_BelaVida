@@ -54,15 +54,24 @@ export async function PUT(req: Request) {
 
     try {
         const body = await req.json();
-        const { id, ...updates } = body;
+        const { id, slug, sku, price, prices, name, description, categoryId, images, stock, active } = body;
 
         if (!id) {
             return NextResponse.json({ error: "Missing ID" }, { status: 400 });
         }
 
-        if (updates.price) updates.price = updates.price.toString();
-        if (updates.stock) updates.stock = Number(updates.stock);
-        if (updates.categoryId) updates.categoryId = Number(updates.categoryId);
+        // Only pass explicitly known fields to prevent Drizzle errors from unknown client-side keys
+        const updates: Record<string, any> = {};
+        if (slug !== undefined) updates.slug = slug;
+        if (sku !== undefined) updates.sku = sku;
+        if (price !== undefined) updates.price = price.toString();
+        if (prices !== undefined) updates.prices = prices;
+        if (name !== undefined) updates.name = name;
+        if (description !== undefined) updates.description = description;
+        if (categoryId !== undefined) updates.categoryId = Number(categoryId);
+        if (images !== undefined) updates.images = images;
+        if (stock !== undefined) updates.stock = Number(stock);
+        if (active !== undefined) updates.active = active;
 
         await db.update(products)
             .set(updates)
