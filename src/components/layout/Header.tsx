@@ -177,7 +177,7 @@ export default function Header() {
               alt="Bela Vida"
               className="w-8 h-8 object-contain transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="text-xl font-bold font-heading uppercase tracking-tight text-neutral-dark">
+            <span className="text-xl font-bold font-heading uppercase tracking-tight dark:text-white">
               Bela Vida
             </span>
           </Link>
