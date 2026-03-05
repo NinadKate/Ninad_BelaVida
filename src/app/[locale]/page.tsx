@@ -11,25 +11,24 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const featuredProducts = await getFeaturedProducts(4);
   const categories = await getAllCategories();
 
-  // Simple hardcoded mapping for category lines, or just use categories from DB
   const recommendedLines = categories.slice(0, 4);
 
   return (
     <div className="w-full">
       {/* Hero Section */}
-      <section className="relative h-[80vh] w-full flex items-center bg-neutral-soft overflow-hidden">
+      <section className="relative h-[80vh] w-full flex items-center bg-neutral-soft dark:bg-neutral-900 overflow-hidden">
         <div className="container mx-auto px-4 z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="animate-in fade-in slide-in-from-left-8 duration-700">
             <span className="text-brand-green font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-4 block">
               {t('tagline')}
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold text-neutral-dark mb-6 leading-tight">
+            <h1 className="text-5xl md:text-7xl font-bold text-neutral-dark dark:text-white mb-6 leading-tight">
               {t.rich('title', {
                 br: () => <br />,
                 italic: (chunks) => <span className="italic font-light">{chunks}</span>
               })}
             </h1>
-            <p className="text-lg text-neutral-600 mb-8 max-w-md leading-relaxed">
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-8 max-w-md leading-relaxed">
               {t('subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -41,7 +40,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </Link>
               <Link
                 href="/products/facial"
-                className="btn-premium border border-neutral-dark text-neutral-dark hover:bg-neutral-dark hover:text-white text-center"
+                className="btn-premium border border-neutral-dark dark:border-white text-neutral-dark dark:text-white hover:bg-neutral-dark dark:hover:bg-white hover:text-white dark:hover:text-neutral-dark text-center transition-colors"
               >
                 {t('routines')}
               </Link>
@@ -50,7 +49,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           <div className="hidden md:block relative h-[600px] animate-in fade-in zoom-in duration-1000">
             <Image
-              src="/hero-skincare.png" // This should ideally be a dynamic hero image
+              src="/hero-skincare.png"
               alt="BELA VIDA Premium Skincare"
               fill
               className="object-contain"
@@ -60,28 +59,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/40 -skew-x-12 translate-x-1/2 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/40 dark:bg-white/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
       </section>
 
       {/* Featured Lines Section */}
       <section className="py-24 container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-neutral-dark mb-2">Nuestras Líneas</h2>
-            <p className="text-neutral-500">Encuentra el cuidado perfecto para tus necesidades.</p>
+            <h2 className="text-3xl font-bold text-neutral-dark dark:text-white mb-2">Nuestras Líneas</h2>
+            <p className="text-neutral-500 dark:text-neutral-400">Encuentra el cuidado perfecto para tus necesidades.</p>
           </div>
-          <Link href="/products" className="text-neutral-dark font-medium underline underline-offset-4 hover:text-brand-green transition-colors">
+          <Link href="/products" className="text-neutral-dark dark:text-neutral-300 font-medium underline underline-offset-4 hover:text-brand-green transition-colors">
             Ver todo el catálogo
           </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {recommendedLines.map((cat) => (
-            <Link key={cat.id} href={`/products/${cat.slug}`} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft">
+            <Link key={cat.id} href={`/products/${cat.slug}`} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft dark:bg-neutral-800">
               <div className="absolute inset-0 bg-neutral-dark/0 group-hover:bg-neutral-dark/10 transition-colors z-10" />
-              {/* If category has image use it, else placeholder color or pattern */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60" />
-
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
               <div className="absolute bottom-6 left-6 z-20">
                 <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">{getLocalized(cat.name, locale)}</h3>
                 <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">Explorar &rarr;</span>
@@ -92,10 +89,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       </section>
 
       {/* Recommended Products */}
-      <section className="py-24 bg-white border-t border-neutral-med">
+      <section className="py-24 bg-white dark:bg-neutral-900 border-t border-neutral-med dark:border-neutral-800">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-neutral-dark mb-4 tracking-tight">Recomendados para ti</h2>
+            <h2 className="text-4xl font-bold text-neutral-dark dark:text-white mb-4 tracking-tight">Recomendados para ti</h2>
             <div className="w-20 h-1 bg-brand-green mx-auto rounded-full" />
           </div>
 

@@ -10,6 +10,7 @@ import { routing } from '@/i18n/routing';
 import NextAuthProvider from "@/components/providers/NextAuthProvider";
 import CartDrawer from "@/components/cart/CartDrawer";
 import SearchModal from "@/components/layout/SearchModal";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -45,21 +46,23 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col`}
       >
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <NextAuthProvider>
-            <Header />
-            <CartDrawer locale={locale} />
-            <SearchModal />
-            <main className="flex-grow">
-              {children}
-            </main>
-            <Footer />
-          </NextAuthProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            <NextAuthProvider>
+              <Header />
+              <CartDrawer locale={locale} />
+              <SearchModal />
+              <main className="flex-grow">
+                {children}
+              </main>
+              <Footer />
+            </NextAuthProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

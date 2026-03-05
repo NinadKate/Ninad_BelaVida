@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -56,9 +57,10 @@ export default function Header() {
     <header
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
+        "dark:text-white",
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-neutral-med"
-          : "bg-white/60 backdrop-blur-sm"
+          ? "bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-sm border-b border-neutral-med dark:border-white/10"
+          : "bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm"
       )}
     >
       {/* Top bar */}
@@ -69,14 +71,14 @@ export default function Header() {
           {/* Mobile Hamburger */}
           <Sheet>
             <SheetTrigger asChild>
-              <button className="md:hidden p-2 hover:bg-neutral-soft rounded-full transition-colors">
+              <button className="md:hidden p-2 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-colors">
                 <Menu size={22} />
               </button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-72 p-0">
+            <SheetContent side="left" className="w-72 p-0 bg-white dark:bg-neutral-900 border-r dark:border-white/10">
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-med">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-med dark:border-white/10">
                   <span className="text-lg font-bold font-heading uppercase tracking-tight">Menu</span>
                   <SheetClose asChild>
                     <button className="p-1 rounded-full hover:bg-neutral-soft transition-colors">
@@ -135,7 +137,7 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <button
-                className="hidden md:flex items-center gap-1.5 text-sm font-medium text-neutral-dark hover:text-brand-green transition-colors py-1.5 px-2 rounded-lg hover:bg-neutral-soft"
+                className="hidden md:flex items-center gap-1.5 text-sm font-medium text-neutral-dark dark:text-white hover:text-brand-green transition-colors py-1.5 px-2 rounded-lg hover:bg-neutral-soft dark:hover:bg-white/10"
                 suppressHydrationWarning
               >
                 <Globe size={16} />
@@ -144,7 +146,7 @@ export default function Header() {
                 <ChevronDown size={13} className="transition-transform duration-200 group-data-[state=open]:rotate-180" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="min-w-[160px] rounded-xl p-1.5 shadow-xl">
+            <DropdownMenuContent align="start" className="min-w-[160px] rounded-xl p-1.5 shadow-xl dark:bg-neutral-900 dark:border-white/10">
               {COUNTRIES.map((country) => (
                 <DropdownMenuItem key={country.code} asChild>
                   <Link
@@ -186,28 +188,28 @@ export default function Header() {
           {/* Search */}
           <button
             onClick={openSearch}
-            className="p-2.5 hover:bg-neutral-soft rounded-full transition-all duration-200 hover:scale-105 group"
+            className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group"
             aria-label="Search"
           >
-            <Search size={20} className="text-neutral-dark group-hover:text-brand-green transition-colors" />
+            <Search size={20} className="text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors" />
           </button>
 
           {/* Account */}
           <button
             onClick={() => session ? router.push("/account") : router.push("/login")}
-            className="p-2.5 hover:bg-neutral-soft rounded-full transition-all duration-200 hover:scale-105 group"
+            className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group"
             aria-label="Account"
           >
-            <User size={20} className="text-neutral-dark group-hover:text-brand-green transition-colors" />
+            <User size={20} className="text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors" />
           </button>
 
           {/* Cart */}
           <button
             onClick={() => setIsOpen(true)}
-            className="p-2.5 hover:bg-neutral-soft rounded-full transition-all duration-200 hover:scale-105 group relative"
+            className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group relative"
             aria-label="Cart"
           >
-            <ShoppingBag size={20} className="text-neutral-dark group-hover:text-brand-green transition-colors" />
+            <ShoppingBag size={20} className="text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors" />
             {mounted && cartCount > 0 && (
               <Badge
                 className="absolute -top-0.5 -right-0.5 h-4 min-w-4 px-1 text-[10px] font-bold bg-brand-green hover:bg-brand-green text-white rounded-full flex items-center justify-center animate-in zoom-in duration-200"
@@ -216,6 +218,9 @@ export default function Header() {
               </Badge>
             )}
           </button>
+
+          {/* Theme Toggle */}
+          <ThemeToggle />
         </div>
       </div>
 
@@ -232,7 +237,7 @@ export default function Header() {
                 "relative px-4 py-2.5 text-[11px] font-semibold uppercase tracking-widest transition-all duration-200 rounded-t-lg group",
                 isActive
                   ? "text-brand-green"
-                  : "text-neutral-dark hover:text-brand-green"
+                  : "text-neutral-dark dark:text-neutral-300 hover:text-brand-green"
               )}
             >
               {t(item.key)}
