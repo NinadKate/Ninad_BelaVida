@@ -41,19 +41,49 @@ export const authOptions = {
         strategy: "jwt" as const
     },
     callbacks: {
-        async jwt({ token, user }: { token: any; user: any }) {
-            if (user) {
-                token.userRole = user.role
-                token.userId = user.id
+        async signIn({ user, account }: { user: any; account: any }) {
+            if (account?.provider === "google") {
+                if (!user.email) return false;
+
+                const existingUser = await db.query.users.findFirst({
+                    where: eq(users.email, user.email)
+                });
+
+                if (!existingUser) {
+                    await db.insert(users).values({
+                        id: crypto.randomUUID(),
+                        name: user.name || "Google User",
+                        email: user.email,
+                        image: user.image,
+                        role: "user"
+                    });
+                }
             }
-            return token
+            return true;
+        },
+        async jwt({ token, user, account }: { token: any; user?: any; account?: any }) {
+            if (user) {
+                if (account?.provider === "google") {
+                    const dbUser = await db.query.users.findFirst({
+                        where: eq(users.email, user.email!)
+                    });
+                    if (dbUser) {
+                        token.userRole = dbUser.role;
+                        token.userId = dbUser.id;
+                    }
+                } else {
+                    token.userRole = user.role;
+                    token.userId = user.id;
+                }
+            }
+            return token;
         },
         async session({ session, token }: { session: Session; token: any }) {
             if (session.user) {
-                (session.user as any).role = token.userRole
-                    ; (session.user as any).id = token.userId
+                (session.user as any).role = token.userRole;
+                (session.user as any).id = token.userId;
             }
-            return session
+            return session;
         }
     },
     pages: {

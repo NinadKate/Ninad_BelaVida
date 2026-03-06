@@ -68,7 +68,7 @@ export default function RegisterPage() {
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg text-gray border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
                             required
                         />
                     </div>
@@ -79,7 +79,7 @@ export default function RegisterPage() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             placeholder="+56 9 1234 5678"
-                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none"
+                            className="w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-green focus:outline-none"
                             required
                         />
                     </div>
