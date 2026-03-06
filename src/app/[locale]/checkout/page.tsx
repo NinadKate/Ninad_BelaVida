@@ -165,7 +165,7 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full btn-premium bg-brand-green text-white hover:bg-brand-green-dark mt-4 disabled:opacity-70"
+                                className="w-full btn-premium brand-gradient-bg text-white hover:opacity-90 mt-4 disabled:opacity-70"
                             >
                                 {isSubmitting ? "Processing..." : "Place Order"}
                             </button>

@@ -24,7 +24,7 @@ export default async function ProductPage({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 {/* Image Gallery */}
                 <div className="space-y-4">
-                    <div className="relative aspect-square bg-white rounded-2xl overflow-hidden border border-neutral-med">
+                    <div className="relative aspect-square rounded-2xl overflow-hidden border border-neutral-med" style={{ backgroundImage: 'var(--product-bg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
                         <Image
                             src={images[0]}
                             alt={getLocalized(product.name, locale)}

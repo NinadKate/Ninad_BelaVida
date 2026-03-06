@@ -30,19 +30,30 @@ export function formatCurrency(amount: number | string, currency: string = "CLP"
   }
 }
 
-export function getRegionalPrice(product: any, locale: string): { amount: number; currency: string } {
+export function getCurrencyForLocale(locale: string): string {
   const currencyMap: Record<string, string> = {
     "es-CL": "CLP",
-    "en": "USD",
-    "pt-BR": "BRL",
+    "es-PE": "PEN",
+    "es-PY": "PYG",
+    "es-UY": "UYU",
+    "es-BO": "BOB",
+    "es-AR": "ARS",
+    "en": "USD",  // default English → USD (India users see USD unless their product price has INR override)
   };
-  const currency = currencyMap[locale] || "CLP";
+  return currencyMap[locale] || "CLP";
+}
+
+export function getRegionalPrice(product: any, locale: string): { amount: number; currency: string } {
+  const currency = getCurrencyForLocale(locale);
 
   // Check if there's a locale-specific price in the prices jsonb field
-  if (product.prices && typeof product.prices === "object" && product.prices[locale]) {
-    return { amount: parseFloat(product.prices[locale]), currency };
+  if (product.prices && typeof product.prices === "object") {
+    // Try exact locale key first (e.g. "es-CL")
+    if (product.prices[locale]) return { amount: parseFloat(product.prices[locale]), currency };
+    // Then try currency key (e.g. "INR", "USD")
+    if (product.prices[currency]) return { amount: parseFloat(product.prices[currency]), currency };
   }
 
-  // Fall back to base price
-  return { amount: parseFloat(product.price || "0"), currency: "CLP" };
+  // Fall back to base price in the locale's currency
+  return { amount: parseFloat(product.price || "0"), currency };
 }

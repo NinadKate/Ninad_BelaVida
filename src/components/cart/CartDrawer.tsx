@@ -122,7 +122,7 @@ export default function CartDrawer({ locale }: { locale: string }) {
                                 setIsOpen(false);
                                 router.push("/checkout");
                             }}
-                            className="w-full btn-premium bg-brand-green text-white hover:bg-brand-green-dark shadow-lg shadow-brand-green/20"
+                            className="w-full btn-premium brand-gradient-bg text-white hover:opacity-90 shadow-lg shadow-blue-500/20"
                         >
                             Checkout
                         </button>

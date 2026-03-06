@@ -60,5 +60,16 @@
             "delete": "Delete",
             "confirmDelete": "Are you sure you want to delete this product?"
         }
+    },
+    "Home": {
+        "linesTitle": "Our Lines",
+        "linesSubtitle": "Find the perfect care for your needs.",
+        "viewCatalog": "View all products",
+        "explore": "Explore",
+        "essenceTitle": "The Bela Vida Essence",
+        "essenceSubtitle": "More than a routine, a lifestyle designed to enhance your natural beauty with science, luxury and elegance.",
+        "scienceTitle": "Science & Beauty",
+        "scienceSubtitle": "Dermocosmetic formulas that transform your skin from the very first use.",
+        "recommendedTitle": "Recommended for You"
     }
 }

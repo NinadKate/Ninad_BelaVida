@@ -12,7 +12,7 @@ export default function ProductCard({ name, category, price, imageUrl }: Product
   return (
     <div className="group bg-white dark:bg-neutral-800 rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:shadow-neutral-dark/5 dark:hover:shadow-black/30 border border-transparent hover:border-neutral-med dark:hover:border-neutral-700">
       {/* Product Image */}
-      <div className="relative aspect-square rounded-xl bg-neutral-soft dark:bg-neutral-700 overflow-hidden mb-4">
+      <div className="relative aspect-square rounded-xl overflow-hidden mb-4" style={{ backgroundImage: 'var(--product-bg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Image
           src={imageUrl}
           alt={name}

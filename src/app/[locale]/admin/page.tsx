@@ -35,59 +35,59 @@ export default async function AdminDashboard({ params, searchParams }: { params:
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold font-heading mb-6 text-neutral-dark">Admin Dashboard</h1>
+            <h1 className="text-3xl font-bold font-heading mb-6 text-neutral-dark dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-neutral-400">Admin Dashboard</h1>
 
             {/* Tabs */}
-            <div className="flex gap-4 mb-8 border-b border-neutral-med">
+            <div className="flex gap-4 mb-8 border-b border-neutral-med dark:border-neutral-700">
                 <a
                     href={`/${locale}/admin?tab=orders`}
-                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'orders' ? 'border-brand-green text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
+                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'orders' ? 'border-brand-green text-brand-green dark:text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark dark:text-neutral-400 dark:hover:text-white'}`}
                 >
                     {t('tabs.orders')}
                 </a>
                 <a
                     href={`/${locale}/admin?tab=products`}
-                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'products' ? 'border-brand-green text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark'}`}
+                    className={`px-4 py-2 font-bold border-b-2 transition-colors ${currentTab === 'products' ? 'border-brand-green text-brand-green dark:text-brand-green' : 'border-transparent text-neutral-500 hover:text-neutral-dark dark:text-neutral-400 dark:hover:text-white'}`}
                 >
                     {t('tabs.products')}
                 </a>
             </div>
 
             {currentTab === 'orders' && (
-                <div className="overflow-x-auto bg-white rounded-xl shadow-lg border border-neutral-med">
+                <div className="overflow-x-auto bg-white dark:bg-neutral-900/50 dark:backdrop-blur-xl rounded-xl shadow-lg border border-neutral-med dark:border-white/5 transition-all duration-500">
                     <table className="w-full text-left">
-                        <thead className="bg-neutral-soft border-b border-neutral-med">
+                        <thead className="bg-neutral-soft dark:bg-white/5 border-b border-neutral-med dark:border-white/5">
                             <tr>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.id')}</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.date')}</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.customer')}</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.status')}</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.total')}</th>
-                                <th className="p-4 font-bold text-sm text-neutral-dark">{t('orders.action')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.id')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.date')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.customer')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.status')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.total')}</th>
+                                <th className="p-4 font-bold text-sm text-neutral-dark dark:text-neutral-200">{t('orders.action')}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-neutral-med">
+                        <tbody className="divide-y divide-neutral-med dark:divide-white/5">
                             {allOrders.map((order) => {
                                 const shipping = order.shippingInfo as any;
                                 return (
-                                    <tr key={order.id} className="hover:bg-neutral-50 transition-colors">
-                                        <td className="p-4 font-mono text-sm">#{order.id}</td>
-                                        <td className="p-4 text-sm text-neutral-600">
+                                    <tr key={order.id} className="hover:bg-neutral-50 dark:hover:bg-white/5 transition-all duration-300">
+                                        <td className="p-4 font-mono text-sm text-neutral-dark dark:text-neutral-300">#{order.id}</td>
+                                        <td className="p-4 text-sm text-neutral-600 dark:text-neutral-400">
                                             {order.created_at ? new Date(order.created_at).toLocaleDateString() : '-'}
                                         </td>
                                         <td className="p-4 text-sm">
-                                            <div className="font-bold text-neutral-dark">{shipping.fullName}</div>
-                                            <div className="text-xs text-neutral-500">{shipping.email}</div>
+                                            <div className="font-bold text-neutral-dark dark:text-neutral-200">{shipping.fullName}</div>
+                                            <div className="text-xs text-neutral-500 dark:text-neutral-400">{shipping.email}</div>
                                         </td>
                                         <td className="p-4">
-                                            <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                                                order.status === 'completed' ? 'bg-green-100 text-green-700' :
-                                                    'bg-neutral-200 text-neutral-600'
+                                            <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase ${order.status === 'pending' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                                                order.status === 'completed' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                                                    'bg-neutral-200 text-neutral-600 dark:bg-neutral-800 dark:text-neutral-400'
                                                 }`}>
                                                 {order.status}
                                             </span>
                                         </td>
-                                        <td className="p-4 font-bold text-neutral-dark">
+                                        <td className="p-4 font-bold text-neutral-dark dark:text-neutral-200">
                                             {formatCurrency(order.total, order.currency, locale)}
                                         </td>
                                         <td className="p-4">
@@ -98,7 +98,7 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                             })}
                             {allOrders.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="p-8 text-center text-neutral-500 italic">{t('orders.noOrders')}</td>
+                                    <td colSpan={6} className="p-8 text-center text-neutral-500 dark:text-neutral-500 italic">{t('orders.noOrders')}</td>
                                 </tr>
                             )}
                         </tbody>

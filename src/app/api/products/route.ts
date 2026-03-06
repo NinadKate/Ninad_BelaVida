@@ -27,6 +27,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
+        // Check for duplicate SKU
+        if (sku !== undefined && sku !== null && sku !== "") {
+            const existingProduct = await db.query.products.findFirst({
+                where: eq(products.sku, sku)
+            });
+            if (existingProduct) {
+                return NextResponse.json({ error: `A product with SKU '${sku}' already exists.` }, { status: 409 });
+            }
+        }
+
         await db.insert(products).values({
             slug,
             sku,
@@ -59,6 +69,18 @@ export async function PUT(req: Request) {
         if (!id) {
             return NextResponse.json({ error: "Missing ID" }, { status: 400 });
         }
+
+        // Check for duplicate SKU
+
+        if (sku) {
+            const existingProduct = await db.query.products.findFirst({
+                where: eq(products.sku, sku)
+            });
+            if (existingProduct && existingProduct.id !== id) {
+                return NextResponse.json({ error: `A product with SKU '${sku}' already exists.` }, { status: 409 });
+            }
+        }
+
 
         // Only pass explicitly known fields to prevent Drizzle errors from unknown client-side keys
         const updates: Record<string, any> = {};

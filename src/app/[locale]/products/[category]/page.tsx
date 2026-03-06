@@ -1,6 +1,6 @@
 import { getCategoryBySlug, getProductsByCategory } from "@/lib/db/queries";
 import { notFound } from "next/navigation";
-import { getLocalized, formatCurrency } from "@/lib/utils";
+import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 import ProductCard from "@/components/ui/ProductCard";
 import { Link } from "@/i18n/routing";
 
@@ -28,20 +28,23 @@ export default async function CategoryPage({
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {products.map((product) => (
-                    <Link
-                        key={product.id}
-                        href={`/products/${categorySlug}/${product.slug}`}
-                        className="block"
-                    >
-                        <ProductCard
-                            name={getLocalized(product.name, locale)}
-                            category={getLocalized(category.name, locale)}
-                            price={formatCurrency(product.price, "CLP", locale)}
-                            imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
-                        />
-                    </Link>
-                ))}
+                {products.map((product) => {
+                    const regionalPrice = getRegionalPrice(product, locale);
+                    return (
+                        <Link
+                            key={product.id}
+                            href={`/products/${categorySlug}/${product.slug}`}
+                            className="block"
+                        >
+                            <ProductCard
+                                name={getLocalized(product.name, locale)}
+                                category={getLocalized(category.name, locale)}
+                                price={formatCurrency(regionalPrice.amount, regionalPrice.currency, locale)}
+                                imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
+                            />
+                        </Link>
+                    );
+                })}
             </div>
 
             {products.length === 0 && (

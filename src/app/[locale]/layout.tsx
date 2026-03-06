@@ -11,6 +11,7 @@ import NextAuthProvider from "@/components/providers/NextAuthProvider";
 import CartDrawer from "@/components/cart/CartDrawer";
 import SearchModal from "@/components/layout/SearchModal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import AnimatedBackground from "@/components/layout/AnimatedBackground";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -56,7 +57,8 @@ export default async function RootLayout({
               <Header />
               <CartDrawer locale={locale} />
               <SearchModal />
-              <main className="flex-grow">
+              <AnimatedBackground />
+              <main className="flex-grow pt-[var(--header-height)]">
                 {children}
               </main>
               <Footer />
