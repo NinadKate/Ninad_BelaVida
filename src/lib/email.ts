@@ -33,11 +33,28 @@ export async function sendOrderNotification(
     `).join('');
 
     const html = `
-    <div style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f9fafb;border-radius:12px;">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order #${orderId}</title>
+        <style>
+            @media only screen and (max-width: 600px) {
+                .container { padding: 12px !important; }
+                .card { padding: 12px !important; margin: 12px 0 !important; }
+                h1 { font-size: 20px !important; }
+                .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+                th, td { padding: 8px !important; font-size: 13px !important; }
+            }
+        </style>
+    </head>
+    <body style="margin:0;padding:0;background-color:#f9fafb;">
+    <div class="container" style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f9fafb;border-radius:12px;">
         <h1 style="color:#111;font-size:22px;margin-bottom:4px;">🛒 New Order #${orderId}</h1>
         <p style="color:#555;margin-top:0;">A new order has been placed on Bella Vida.</p>
 
-        <div style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
+        <div class="card" style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
             <h2 style="font-size:15px;color:#374151;margin-top:0;">Customer Details</h2>
             <p style="margin:4px 0;"><strong>Name:</strong> ${shippingInfo.fullName}</p>
             <p style="margin:4px 0;"><strong>Email:</strong> ${shippingInfo.email}</p>
@@ -45,9 +62,10 @@ export async function sendOrderNotification(
             <p style="margin:4px 0;"><strong>Address:</strong> ${shippingInfo.address || '—'}, ${shippingInfo.city || ''}, ${shippingInfo.country || ''}</p>
         </div>
 
-        <div style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
+        <div class="card" style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
             <h2 style="font-size:15px;color:#374151;margin-top:0;">Order Items</h2>
-            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <div class="table-container">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:400px;">
                 <thead>
                     <tr style="background:#f3f4f6;">
                         <th style="padding:8px 12px;text-align:left;color:#6b7280;">Product</th>
@@ -61,9 +79,10 @@ export async function sendOrderNotification(
                     ${itemRows || '<tr><td colspan="5" style="padding:12px;color:#999;text-align:center;">No items</td></tr>'}
                 </tbody>
             </table>
+            </div>
         </div>
 
-        <div style="background:#111;border-radius:8px;padding:16px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
+        <div class="card" style="background:#111;border-radius:8px;padding:16px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
             <span style="font-size:16px;font-weight:600;">Order Total</span>
             <span style="font-size:20px;font-weight:700;">${currency} ${Number(total).toLocaleString()}</span>
         </div>
@@ -75,6 +94,8 @@ export async function sendOrderNotification(
             </a>
         </div>
     </div>
+    </body>
+    </html>
     `;
 
     try {

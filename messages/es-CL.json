@@ -70,6 +70,53 @@
         "essenceSubtitle": "Más que una rutina, un estilo de vida diseñado para realzar tu belleza natural con ciencia, lujo y elegancia.",
         "scienceTitle": "Ciencia & Belleza",
         "scienceSubtitle": "Fórmulas dermocosméticas que transforman tu piel desde el primer uso.",
-        "recommendedTitle": "Recomendados para ti"
+        "recommendedTitle": "Recomendados para ti",
+        "marketplaceTitle1": "Eleva tu Rutina",
+        "marketplaceSub1": "Experimenta la conexión más pura entre ciencia y naturaleza.",
+        "marketplaceTitle2": "Radiancia Impecable",
+        "marketplaceSub2": "Fórmulas de grado profesional creadas para tu viaje único.",
+        "marketplaceTitle3": "Ingredientes Puros",
+        "marketplaceSub3": "Obtenidos globalmente, perfeccionados localmente para tu piel.",
+        "marketplaceTitle4": "Elegancia Atemporal",
+        "marketplaceSub4": "Porque tu piel merece lo absoluto mejor."
+    },
+    "Footer": {
+        "brandDesc": "Descubre la belleza a través de la ciencia. Suscríbete para recibir consejos exclusivos y lanzamientos.",
+        "emailPlaceholder": "Correo electrónico",
+        "products": "Productos",
+        "company": "Compañía",
+        "aboutUs": "Sobre Nosotros",
+        "contact": "Contacto",
+        "stores": "Puntos de Venta",
+        "faq": "Preguntas Frecuentes",
+        "followUs": "Síguenos",
+        "rights": "© 2026 Bela Vida. Todos los derechos reservados."
+    },
+    "About": {
+        "title": "Sobre Nosotros",
+        "intro": "Bela Vida nació de una creencia fundamental: la verdadera belleza proviene de la salud de la piel. Basados en años de investigación dermatológica, formulamos productos que respetan, protegen y mejoran la barrera natural de tu piel.",
+        "missionTitle": "Nuestra Misión",
+        "missionText": "Fusionamos ciencia, naturaleza y lujo para ofrecer soluciones dermocosméticas altamente efectivas que transforman tu rutina de cuidado de la piel en un elegante ritual diario.",
+        "scienceTitle": "La Ciencia Detrás de la Belleza",
+        "scienceText": "Cada gota está formulada meticulosamente sin químicos agresivos, utilizando ingredientes activos clínicamente probados para garantizar la máxima eficacia sin comprometer la pureza."
+    },
+    "Contact": {
+        "title": "Contáctanos",
+        "description": "¿Tienes alguna pregunta? Estamos aquí para ayudarte a diseñar tu rutina perfecta de cuidado de la piel.",
+        "address": "Dirección",
+        "addressValue": "123 Innovation Drive, Tech District",
+        "email": "Correo Electrónico",
+        "emailValue": "hello@belavida.com",
+        "phone": "Teléfono",
+        "phoneValue": "+56 9 1234 5678",
+        "formTitle": "Envíanos un Mensaje",
+        "nameLabel": "Nombre Completo",
+        "namePlaceholder": "Juan Pérez",
+        "emailLabel": "Dirección de Correo",
+        "subjectLabel": "Asunto",
+        "subjectPlaceholder": "¿En qué podemos ayudarte?",
+        "messageLabel": "Mensaje",
+        "messagePlaceholder": "Escribe tu mensaje aquí...",
+        "submit": "Enviar Mensaje"
     }
 }

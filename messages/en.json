@@ -70,6 +70,53 @@
         "essenceSubtitle": "More than a routine, a lifestyle designed to enhance your natural beauty with science, luxury and elegance.",
         "scienceTitle": "Science & Beauty",
         "scienceSubtitle": "Dermocosmetic formulas that transform your skin from the very first use.",
-        "recommendedTitle": "Recommended for You"
+        "recommendedTitle": "Recommended for You",
+        "marketplaceTitle1": "Elevate Your Routine",
+        "marketplaceSub1": "Experience the purest connection between science and nature.",
+        "marketplaceTitle2": "Flawless Radiance",
+        "marketplaceSub2": "Professional-grade formulas built for your unique journey.",
+        "marketplaceTitle3": "Pure Ingredients",
+        "marketplaceSub3": "Sourced globally, perfected locally for your skin.",
+        "marketplaceTitle4": "Timeless Elegance",
+        "marketplaceSub4": "Because your skin deserves the absolute best."
+    },
+    "Footer": {
+        "brandDesc": "Discover beauty through science. Subscribe to receive exclusive tips and releases.",
+        "emailPlaceholder": "Email address",
+        "products": "Products",
+        "company": "Company",
+        "aboutUs": "About Us",
+        "contact": "Contact",
+        "stores": "Stores",
+        "faq": "FAQ",
+        "followUs": "Follow Us",
+        "rights": "© 2026 Bela Vida. All rights reserved."
+    },
+    "About": {
+        "title": "About Us",
+        "intro": "Bela Vida was born from a fundamental belief: true beauty comes from skin health. Based on years of dermatological research, we formulate products that respect, protect, and enhance your skin's natural barrier.",
+        "missionTitle": "Our Mission",
+        "missionText": "We merge science, nature, and luxury to deliver highly effective dermo-cosmetic solutions that transform your skincare routine into an elegant daily ritual.",
+        "scienceTitle": "Science Behind Beauty",
+        "scienceText": "Every drop is meticulously formulated without harsh chemicals, utilizing clinically proven active ingredients to ensure maximum efficacy without compromising pureness."
+    },
+    "Contact": {
+        "title": "Contact Us",
+        "description": "Have a question? We're here to help you design your perfect skincare routine.",
+        "address": "Address",
+        "addressValue": "123 Innovation Drive, Tech District",
+        "email": "Email",
+        "emailValue": "hello@belavida.com",
+        "phone": "Phone",
+        "phoneValue": "+1 (555) 123-4567",
+        "formTitle": "Send us a Message",
+        "nameLabel": "Full Name",
+        "namePlaceholder": "Jane Doe",
+        "emailLabel": "Email Address",
+        "subjectLabel": "Subject",
+        "subjectPlaceholder": "How can we help?",
+        "messageLabel": "Message",
+        "messagePlaceholder": "Write your message here...",
+        "submit": "Send Message"
     }
 }

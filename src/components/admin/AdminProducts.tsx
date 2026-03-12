@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getCurrencyForLocale } from "@/lib/utils";
 import { useTranslations } from 'next-intl';
 import ProductForm from "./ProductForm";
 import { useRouter } from "@/i18n/routing";
@@ -82,7 +82,7 @@ export default function AdminProducts({ initialProducts, categories, locale }: A
                                         {cat?.name[locale] || cat?.name['es-CL'] || '-'}
                                     </td>
                                     <td className="p-4 text-sm font-bold text-neutral-dark dark:text-neutral-200" suppressHydrationWarning>
-                                        {formatCurrency(product.price, "CLP", locale)}
+                                        {formatCurrency(product.price, getCurrencyForLocale(locale), locale)}
                                     </td>
                                     <td className="p-4 text-sm text-neutral-dark dark:text-neutral-300">
                                         {product.stock}

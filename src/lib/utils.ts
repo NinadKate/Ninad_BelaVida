@@ -38,7 +38,8 @@ export function getCurrencyForLocale(locale: string): string {
     "es-UY": "UYU",
     "es-BO": "BOB",
     "es-AR": "ARS",
-    "en": "USD",  // default English → USD (India users see USD unless their product price has INR override)
+    "en": "USD",  // default English → USD
+    "en-IN": "INR", // India specific English override → INR
   };
   return currencyMap[locale] || "CLP";
 }

@@ -4,7 +4,7 @@ import { useCartStore } from "@/lib/store/cart";
 import { X, Minus, Plus, ShoppingBag } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "@/i18n/routing";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getCurrencyForLocale } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 export default function CartDrawer({ locale }: { locale: string }) {
@@ -100,9 +100,9 @@ export default function CartDrawer({ locale }: { locale: string }) {
                                                 <Plus className="w-3 h-3" />
                                             </button>
                                         </div>
-                                        <span className="font-bold text-neutral-dark">
-                                            {formatCurrency(item.price * item.quantity, "CLP", locale)}
-                                        </span>
+                                        <div className="font-bold text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors">
+                                            {formatCurrency(item.price * item.quantity, getCurrencyForLocale(locale), locale)}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -113,9 +113,9 @@ export default function CartDrawer({ locale }: { locale: string }) {
                 {/* Footer */}
                 {items.length > 0 && (
                     <div className="p-4 border-t border-neutral-med space-y-4 bg-neutral-soft/30">
-                        <div className="flex items-center justify-between text-lg font-bold text-neutral-dark">
+                        <div className="flex justify-between items-center text-lg font-bold mb-6 font-heading text-neutral-dark dark:text-white">
                             <span>Total</span>
-                            <span>{formatCurrency(total, "CLP", locale)}</span>
+                            <span>{formatCurrency(total, getCurrencyForLocale(locale), locale)}</span>
                         </div>
                         <button
                             onClick={() => {

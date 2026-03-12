@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useSearchStore } from "@/lib/store/search";
 import { X, Search as SearchIcon, Loader2 } from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { formatCurrency, getLocalized } from "@/lib/utils";
+import { formatCurrency, getLocalized, getCurrencyForLocale } from "@/lib/utils";
 import { useLocale } from "next-intl";
 
 export default function SearchModal() {
@@ -103,7 +103,7 @@ export default function SearchModal() {
                                         </p>
                                     </div>
                                     <div className="font-bold text-neutral-dark font-heading">
-                                        {formatCurrency(product.price, 'CLP', locale)}
+                                        {formatCurrency(product.price, getCurrencyForLocale(locale), locale)}
                                     </div>
                                 </Link>
                             ))}

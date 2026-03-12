@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getCurrencyForLocale } from "@/lib/utils";
 import { COUNTRIES } from "@/constants/countries";
 
 const checkoutSchema = z.object({
@@ -143,13 +143,15 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                                 <div>
                                     <label className="block text-sm font-medium mb-1">Phone</label>
                                     <div className="relative">
-                                        {form.watch("country") === "India" && (
-                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">+91</span>
+                                        {form.watch("country") && COUNTRIES.find(c => c.name === form.watch("country")) && (
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-sm font-medium">
+                                                {COUNTRIES.find(c => c.name === form.watch("country"))?.phoneCode}
+                                            </span>
                                         )}
                                         <input
                                             {...form.register("phone")}
-                                            placeholder={form.watch("country") === "India" ? "98765-43210" : "Phone number"}
-                                            className={`w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none transition-all ${form.watch("country") === "India" ? "pl-12" : ""}`}
+                                            placeholder="Phone number"
+                                            className={`w-full px-4 py-2 rounded-lg border border-neutral-med focus:ring-2 focus:ring-brand-green focus:outline-none transition-all ${form.watch("country") && COUNTRIES.find(c => c.name === form.watch("country"))?.phoneCode ? "pl-12" : ""}`}
                                         />
                                     </div>
                                     {form.formState.errors.phone && <p className="text-green-500 text-xs mt-1">{form.formState.errors.phone.message}</p>}
@@ -184,13 +186,13 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                             {items.map(item => (
                                 <div key={item.id} className="flex justify-between text-sm">
                                     <span>{item.name} x {item.quantity}</span>
-                                    <span className="font-medium">{formatCurrency(item.price * item.quantity, "CLP", locale)}</span>
+                                    <span className="font-medium">{formatCurrency(item.price * item.quantity, getCurrencyForLocale(locale), locale)}</span>
                                 </div>
                             ))}
                         </div>
                         <div className="border-t border-neutral-300 pt-4 flex justify-between font-bold text-lg">
                             <span>Total</span>
-                            <span>{formatCurrency(totalJson(), "CLP", locale)}</span>
+                            <span>{formatCurrency(totalJson(), getCurrencyForLocale(locale), locale)}</span>
                         </div>
                     </div>
                 </div>

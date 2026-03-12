@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { sendOrderNotification } from "@/lib/email";
 import { eq, inArray } from "drizzle-orm";
+import { getCurrencyForLocale } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {
@@ -59,7 +60,7 @@ export async function POST(req: Request) {
                 userId: userId,
                 status: "pending",
                 total: total.toString(),
-                currency: "CLP",
+                currency: getCurrencyForLocale(locale || "es-CL"),
                 locale: locale || "es-CL",
                 shippingInfo: shippingInfo,
             })
@@ -89,12 +90,12 @@ export async function POST(req: Request) {
                 sku: dbProduct?.sku || undefined,
                 quantity: item.quantity,
                 price: item.price,
-                currency: "CLP",
+                currency: getCurrencyForLocale(locale || "es-CL"),
             };
         });
 
         // 6. Send Notification (non-blocking)
-        sendOrderNotification(newOrder.id, total, "CLP", shippingInfo, emailItems).catch(err => {
+        sendOrderNotification(newOrder.id, total, getCurrencyForLocale(locale || "es-CL"), shippingInfo, emailItems).catch(err => {
             console.error("Failed to send order notification:", err);
         });
 

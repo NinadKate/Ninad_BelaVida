@@ -50,6 +50,7 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${outfit.variable} antialiased min-h-screen flex flex-col`}
+        suppressHydrationWarning
       >
         <ThemeProvider>
           <NextIntlClientProvider messages={messages} locale={locale}>

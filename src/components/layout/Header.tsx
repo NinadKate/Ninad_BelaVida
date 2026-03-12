@@ -14,6 +14,7 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import {
   DropdownMenu,
@@ -84,11 +85,11 @@ export default function Header() {
                   <Menu size={22} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 p-0 bg-white dark:bg-neutral-900 border-r dark:border-white/10">
+              <SheetContent side="left" className="w-72 p-0 bg-white dark:bg-neutral-900 border-r dark:border-white/10" showCloseButton={false}>
                 <div className="flex flex-col h-full">
                   {/* Mobile Menu Header */}
                   <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-med dark:border-white/10">
-                    <span className="text-lg font-bold font-heading uppercase tracking-tight">Menu</span>
+                    <SheetTitle className="text-lg font-bold font-heading uppercase tracking-tight m-0 p-0 border-0">Menu</SheetTitle>
                     <SheetClose asChild>
                       <button className="p-1 rounded-full hover:bg-neutral-soft transition-colors">
                         <X size={18} />
@@ -209,6 +210,7 @@ export default function Header() {
               onClick={openSearch}
               className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group"
               aria-label="Search"
+              suppressHydrationWarning
             >
               <Search size={20} className="text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors" />
             </button>
@@ -218,12 +220,14 @@ export default function Header() {
               onClick={() => session ? router.push("/account") : router.push("/login")}
               className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group"
               aria-label="Account"
+              suppressHydrationWarning
             >
               <User size={20} className="text-neutral-dark dark:text-white group-hover:text-brand-green transition-colors" />
             </button>
 
             {/* Cart */}
             <button
+              suppressHydrationWarning
               onClick={() => setIsOpen(true)}
               className="p-2.5 hover:bg-neutral-soft dark:hover:bg-white/10 rounded-full transition-all duration-200 hover:scale-105 group relative"
               aria-label="Cart"
@@ -246,8 +250,8 @@ export default function Header() {
         {/* Desktop Primary Navigation */}
         <nav
           className={cn(
-            "hidden md:flex justify-center gap-1 transition-all duration-500 ease-out overflow-hidden",
-            scrolled ? "h-0 opacity-0 pointer-events-none" : "container mx-auto px-4 h-10 opacity-100"
+            "hidden md:flex justify-center gap-1 transition-all duration-100 ease-out",
+            scrolled ? "h-0 opacity-0 pointer-events-none" : "container mx-auto px-4 h-10 mb-6 opacity-100"
           )}
         >
           {NAV_LINKS.map((item) => {
@@ -261,7 +265,7 @@ export default function Header() {
                   "relative px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.2em] transition-all duration-300 rounded-full group",
                   isActive
                     ? "text-brand-green bg-brand-green/10"
-                    : "text-neutral-dark dark:text-neutral-300 hover:text-brand-green hover:bg-neutral-100 dark:hover:bg-white/5"
+                    : "text-neutral-dark dark:text-neutral-300 hover:text-neutral-dark hover:bg-white dark:hover:bg-white dark:hover:text-black shadow-sm hover:shadow-md"
                 )}
               >
                 {t(item.key)}

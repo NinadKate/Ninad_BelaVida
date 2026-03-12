@@ -18,6 +18,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     <div className="w-full">
       {/* Hero Section: fills remaining viewport height after navbar */}
       <section className="relative min-h-[calc(90vh-var(--header-height))] w-full flex items-center overflow-hidden">
+        {/* Mobile-only Background Image */}
+        <div className="absolute inset-0 md:hidden z-0">
+          <Image
+            src="/beautiful-woman-4.png"
+            alt="Hero Background Mobile"
+            fill
+            className="object-cover opacity-40 dark:opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white dark:from-neutral-950/40 dark:via-transparent dark:to-neutral-950" />
+        </div>
+
         <div className="container mx-auto px-6 py-8 md:py-16 z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="animate-in fade-in slide-in-from-left-8 duration-700 text-center md:text-left">
             <span className="text-brand-green font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-3 md:mb-4 block">
@@ -35,26 +47,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start">
               <Link
                 href="/products/solar"
-                className="btn-premium brand-gradient-bg text-white hover:opacity-90 shadow-lg shadow-blue-500/20 text-center"
+                className="btn-premium brand-gradient-bg text-white hover:opacity-90 shadow-lg shadow-blue-500/20 text-center dark:shadow-white/20"
               >
                 {t('discover')}
-              </Link>
-              <Link
-                href="/products/facial"
-                className="btn-premium border border-neutral-dark dark:border-white text-neutral-dark dark:text-white hover:bg-neutral-dark dark:hover:bg-white hover:text-white dark:hover:text-neutral-dark text-center transition-colors"
-              >
-                {t('routines')}
               </Link>
             </div>
           </div>
 
-          <div className="hidden md:block relative h-[600px] animate-in fade-in zoom-in duration-1000 p-8">
+          <div className="hidden md:block relative h-[470px]">
             <div className="relative w-full h-full rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] border-4 border-white/40 dark:border-white/10 group">
               <Image
                 src="/beautiful-woman-4.png"
                 alt="BELA VIDA Premium Lifestyle"
                 fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                className="object-cover"
                 priority
               />
             </div>
@@ -63,6 +69,28 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-white/40 dark:bg-white/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
+      </section>
+
+      {/* Marketplace Video Banner 1 */}
+      <section className="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-105"
+        >
+          <source src="/bg-vid-1.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
+          <h2 className="text-5xl md:text-8xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl uppercase">
+            {tHome('marketplaceTitle1')}
+          </h2>
+          <p className="text-xl md:text-3xl text-white/90 font-light drop-shadow-lg max-w-2xl">
+            {tHome('marketplaceSub1')}
+          </p>
+        </div>
       </section>
 
       {/* Featured Lines Section */}
@@ -88,6 +116,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </div>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* Marketplace Image Banner 1 */}
+      <section className="relative w-full h-[60vh] flex items-center justify-end overflow-hidden">
+        <Image
+          src="/beautiful-woman-7.png"
+          alt="Premium Marketplace"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/40 to-black/80" />
+        <div className="relative z-10 px-6 md:px-20 max-w-4xl">
+          <h2 className="text-4xl md:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-xl">
+            {tHome('marketplaceTitle3')}
+          </h2>
+          <p className="text-lg md:text-2xl text-white/80 font-light drop-shadow-md">
+            {tHome('marketplaceSub3')}
+          </p>
         </div>
       </section>
 
@@ -134,6 +181,28 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
+      {/* Marketplace Video Banner 2 */}
+      <section className="relative w-full h-[80vh] flex items-center justify-start overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/bg-vid-2.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/30 to-transparent" />
+        <div className="relative z-10 px-6 md:px-20 max-w-3xl text-right">
+          <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl">
+            {tHome('marketplaceTitle2')}
+          </h2>
+          <p className="text-xl md:text-3xl text-white/90 font-light drop-shadow-lg">
+            {tHome('marketplaceSub2')}
+          </p>
+        </div>
+      </section>
+
       {/* Recommended Products */}
       <section className="py-24 bg-white dark:bg-neutral-900 border-t border-neutral-med dark:border-neutral-800">
         <div className="container mx-auto px-4">
@@ -157,6 +226,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Marketplace Image Banner 2 */}
+      <section className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/beautiful-woman-8.png"
+          alt="Timeless Elegance"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-serif italic text-white mb-4 drop-shadow-xl">
+            {tHome('marketplaceTitle4')}
+          </h2>
+          <p className="text-lg md:text-xl text-white/80 font-light tracking-widest uppercase">
+            {tHome('marketplaceSub4')}
+          </p>
         </div>
       </section>
     </div>

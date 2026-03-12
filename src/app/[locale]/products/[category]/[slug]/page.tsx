@@ -1,6 +1,6 @@
 import { getProductBySlug } from "@/lib/db/queries";
 import { notFound } from "next/navigation";
-import { getLocalized, formatCurrency } from "@/lib/utils";
+import { getLocalized, formatCurrency, getCurrencyForLocale } from "@/lib/utils";
 import Image from "next/image";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 
@@ -20,7 +20,7 @@ export default async function ProductPage({
     const images = product.images && product.images.length > 0 ? product.images : ['/placeholder.jpg'];
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 pt-12 md:pt-20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                 {/* Image Gallery */}
                 <div className="space-y-4">
@@ -59,7 +59,7 @@ export default async function ProductPage({
 
                     <div className="flex items-baseline gap-4">
                         <span className="text-2xl md:text-3xl font-bold text-neutral-dark">
-                            {formatCurrency(product.price, "CLP", locale)}
+                            {formatCurrency(product.price, getCurrencyForLocale(locale), locale)}
                         </span>
                         <span className="text-sm text-neutral-500 font-medium">
                             IVA Incluido

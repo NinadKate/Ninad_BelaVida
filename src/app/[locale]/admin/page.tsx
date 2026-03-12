@@ -4,7 +4,7 @@ import { desc, eq, and } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "@/i18n/routing";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, getCurrencyForLocale } from "@/lib/utils";
 import AdminProducts from "@/components/admin/AdminProducts";
 import { getTranslations } from 'next-intl/server';
 
@@ -88,7 +88,7 @@ export default async function AdminDashboard({ params, searchParams }: { params:
                                             </span>
                                         </td>
                                         <td className="p-4 font-bold text-neutral-dark dark:text-neutral-200">
-                                            {formatCurrency(order.total, order.currency, locale)}
+                                            {formatCurrency(order.total, getCurrencyForLocale(locale), locale)}
                                         </td>
                                         <td className="p-4">
                                             <button className="text-brand-green hover:underline text-sm font-medium">{t('orders.view')}</button>
