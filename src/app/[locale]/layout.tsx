@@ -24,8 +24,11 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Bela Vida | Belleza a través de la Ciencia",
-  description: "Descubre Bela Vida, productos dermatológicos de alta calidad para el cuidado de tu piel.",
+  title: "Bela Vida",
+  description: "",
+  icons: {
+    icon: '/belavida_logo.png',
+  },
 };
 
 export default async function RootLayout({
