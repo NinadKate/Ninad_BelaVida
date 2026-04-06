@@ -22,7 +22,7 @@ export default async function CategoryPage({
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold font-heading text-neutral-dark mb-2">
+                <h1 className="text-3xl font-bold font-heading dark:text-neutral-100 text-neutral-dark mb-2">
                     {getLocalized(category.name, locale)}
                 </h1>
             </div>
@@ -48,7 +48,7 @@ export default async function CategoryPage({
             </div>
 
             {products.length === 0 && (
-                <div className="text-center py-12 text-neutral-500">
+                <div className="text-center py-12 text-neutral-500 dark:text-neutral-100">
                     <p>No products found in this category.</p>
                 </div>
             )}

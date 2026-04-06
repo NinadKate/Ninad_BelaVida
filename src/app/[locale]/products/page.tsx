@@ -19,7 +19,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
 
     return (
         <div className="container mx-auto px-4 py-12">
-            <h1 className="text-4xl font-bold mb-8 text-neutral-dark uppercase tracking-tight">{t('fullCatalog')}</h1>
+            <h1 className="text-4xl font-bold mb-8 text-neutral-dark dark:text-neutral-100 uppercase tracking-tight">{t('fullCatalog')}</h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {allProducts.map((product) => {
@@ -39,7 +39,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
 
             {allProducts.length === 0 && (
                 <div className="text-center py-20">
-                    <p className="text-neutral-500">{t('noProducts')}</p>
+                    <p className="text-neutral-500 dark:text-neutral-100">{t('noProducts')}</p>
                 </div>
             )}
         </div>

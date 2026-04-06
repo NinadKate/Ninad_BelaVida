@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div>
+          {/* <div>
             <h4 className="font-bold text-sm uppercase tracking-widest mb-6">{t("followUs")}</h4>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-brand-green hover:border-brand-green transition-all group">
@@ -71,7 +71,7 @@ export default function Footer() {
             <p className="mt-8 text-xs text-neutral-500">
               {t("rights")}
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

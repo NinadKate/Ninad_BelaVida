@@ -49,24 +49,24 @@ export default async function ProductPage({
                 {/* Product Info */}
                 <div className="space-y-6">
                     <div>
-                        <p className="text-sm text-neutral-500 uppercase tracking-wide font-bold mb-2">
+                        <p className="text-sm dark:text-neutral-100 text-neutral-500 uppercase tracking-wide font-bold mb-2">
                             {categorySlug}
                         </p>
-                        <h1 className="text-3xl md:text-4xl font-bold text-neutral-dark font-heading">
+                        <h1 className="text-3xl md:text-4xl font-bold text-neutral-dark dark:text-neutral-100 dark:text-neutral-100font-heading">
                             {getLocalized(product.name, locale)}
                         </h1>
                     </div>
 
                     <div className="flex items-baseline gap-4">
-                        <span className="text-2xl md:text-3xl font-bold text-neutral-dark">
+                        <span className="text-2xl md:text-3xl font-bold text-neutral-dark dark:text-neutral-100">
                             {formatCurrency(product.price, getCurrencyForLocale(locale), locale)}
                         </span>
-                        <span className="text-sm text-neutral-500 font-medium">
+                        <span className="text-sm dark:text-neutral-100 text-neutral-500 font-medium">
                             IVA Incluido
                         </span>
                     </div>
 
-                    <div className="prose prose-neutral max-w-none text-neutral-600">
+                    <div className="prose prose-neutral max-w-none  dark:text-neutral-100 text-neutral-600">
                         <p>{getLocalized(product.description, locale)}</p>
                     </div>
 
