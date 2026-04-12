@@ -16,17 +16,38 @@ export function getLocalized(obj: LocalizedString | any, locale: string): string
 
 // --- Currency & Pricing ---
 
+const currencySymbols: Record<string, string> = {
+  CLP: "CLP$",
+  PEN: "S/",
+  PYG: "₲",
+  UYU: "UY$",
+  BOB: "Bs",
+  ARS: "AR$",
+  INR: "₹",
+  USD: "US$",
+};
+
+const currencyFractionDigits: Record<string, number> = {
+  CLP: 0,
+  PYG: 0,
+};
+
 export function formatCurrency(amount: number | string, currency: string = "CLP", locale: string = "es-CL"): string {
   const num = typeof amount === "string" ? parseFloat(amount) : amount;
   if (isNaN(num)) return "";
+
+  const symbol = currencySymbols[currency] || currency;
+  const fractionDigits = currencyFractionDigits[currency] ?? 2;
+
   try {
-    return new Intl.NumberFormat(locale, {
-      style: "currency",
-      currency,
-      maximumFractionDigits: currency === "CLP" ? 0 : 2,
+    const formattedNumber = new Intl.NumberFormat(locale, {
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
     }).format(num);
+
+    return `${symbol} ${formattedNumber}`;
   } catch {
-    return `${currency} ${num.toLocaleString()}`;
+    return `${symbol} ${num.toLocaleString()}`;
   }
 }
 
