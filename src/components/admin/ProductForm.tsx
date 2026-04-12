@@ -101,33 +101,40 @@ export default function ProductForm({ product, categories, onClose, onSuccess }:
 
         setUploading(true);
         try {
-            // 1. Get presigned URL
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    filename: file.name,
-                    contentType: file.type
-                })
-            });
+          const payload = new FormData();
+          payload.append("file", file);
 
-            if (!res.ok) throw new Error("Failed to get upload URL");
-            const { uploadUrl, publicUrl } = await res.json();
+          const res = await fetch("/api/upload", {
+            method: "POST",
+            body: payload,
+          });
 
-            // 2. Upload to R2
+          if (!res.ok) {
+            const body = await res.json().catch(() => null);
+            throw new Error(body?.error || "Failed to upload image");
+          }
+
+          const { uploadUrl, publicUrl } = await res.json();
+
+          if (uploadUrl) {
+            // Backward compatibility with presigned upload responses.
             const uploadRes = await fetch(uploadUrl, {
-                method: "PUT",
-                headers: { "Content-Type": file.type },
-                body: file
+              method: "PUT",
+              headers: { "Content-Type": file.type },
+              body: file,
             });
 
             if (!uploadRes.ok) throw new Error("Failed to upload file");
+          }
 
-            // 3. Update form with R2 public URL (used when saving the product)
-            setFormData(prev => ({ ...prev, images: [publicUrl] }));
+          if (!publicUrl)
+            throw new Error("Upload succeeded but no image URL returned");
+
+          // Save the uploaded image URL on the product form.
+          setFormData((prev) => ({ ...prev, images: [publicUrl] }));
         } catch (err) {
             console.error(err);
-            setError("Image upload failed");
+            setError(err instanceof Error ? err.message : "Image upload failed");
             setPreviewUrl(""); // Clear preview on error
         } finally {
             setUploading(false);
