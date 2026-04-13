@@ -69,6 +69,83 @@
           "es": "Línea Hyper CICA",
           "en": "Hyper CICA Line"
         }
+      },
+      {
+        "slug": "colonias",
+        "name": {
+          "es": "Colonias",
+          "en": "Colognes"
+        }
+      },
+      {
+        "slug": "locion-dbts-gel",
+        "name": {
+          "es": "Loción DBTS y Gel",
+          "en": "DBTS Lotion and Gel"
+        }
+      },
+      {
+        "slug": "aromaterapia",
+        "name": {
+          "es": "Aromaterapia",
+          "en": "Aromatherapy"
+        }
+      },
+      {
+        "slug": "aceites-corporales",
+        "name": {
+          "es": "Aceites Corporales",
+          "en": "Body Oils"
+        }
+      },
+      {
+        "slug": "linea-bebe",
+        "name": {
+          "es": "Línea Bebé",
+          "en": "Baby Line"
+        }
+      },
+      {
+        "slug": "linea-colageno",
+        "name": {
+          "es": "Línea Colágeno",
+          "en": "Collagen Line"
+        }
+      },
+      {
+        "slug": "linea-arnica",
+        "name": {
+          "es": "Línea Árnica",
+          "en": "Arnica Line"
+        }
+      },
+      {
+        "slug": "linea-rosa-mosqueta",
+        "name": {
+          "es": "Línea Rosa Mosqueta",
+          "en": "Rosehip Line"
+        }
+      },
+      {
+        "slug": "linea-coco",
+        "name": {
+          "es": "Línea Coco",
+          "en": "Coconut Line"
+        }
+      },
+      {
+        "slug": "linea-cremoso",
+        "name": {
+          "es": "Línea Cremoso",
+          "en": "Creamy Line"
+        }
+      },
+      {
+        "slug": "linea-piel-sana",
+        "name": {
+          "es": "Línea Piel Sana",
+          "en": "Healthy Skin Line"
+        }
       }
     ],
     "products": [
