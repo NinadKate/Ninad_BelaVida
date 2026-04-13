@@ -18,7 +18,7 @@ export default function Footer() {
             <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
               {t("brandDesc")}
             </p>
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
               <input
                 suppressHydrationWarning
                 type="email"
@@ -28,7 +28,7 @@ export default function Footer() {
               <button className="bg-white text-neutral-dark p-2 rounded-lg hover:bg-brand-green hover:text-white transition-all group" suppressHydrationWarning>
                 <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </button>
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}

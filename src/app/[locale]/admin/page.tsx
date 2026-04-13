@@ -30,7 +30,25 @@ export default async function AdminDashboard({ params, searchParams }: { params:
 
     // Fetch data based on tab? Or just fetch all necessary for simple dashboard.
     // Fetch generic data.
-    const allOrders = currentTab === 'orders' ? await db.select().from(orders).orderBy(desc(orders.created_at)) : [];
+    const allOrders =
+      currentTab === "orders"
+        ? await db.query.orders.findMany({
+            orderBy: [desc(orders.created_at)],
+            with: {
+              items: {
+                with: {
+                  product: {
+                    columns: {
+                      id: true,
+                      name: true,
+                      sku: true,
+                    },
+                  },
+                },
+              },
+            },
+          })
+        : [];
     const allProducts = currentTab === 'products' ? await db.query.products.findMany({ orderBy: [desc(products.created_at)] }) : [];
     const allCategories = await db.query.categories.findMany();
 
