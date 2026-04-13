@@ -13,6 +13,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const categories = await getAllCategories();
 
   const recommendedLines = categories.slice(0, 4);
+  const lineImages: Record<string, string> = {
+    // Add the uploaded image file at public/urea-line-banner.jpg
+    urea: "/urea-line-banner.jpg",
+    solar: "/beautiful-woman-1.png",
+    facial: "/beautiful-woman-3.png",
+    corporal: "/beautiful-woman-5.png",
+    "piel-atopica": "/beautiful-woman-6.png",
+    "aloe-vera": "/beautiful-woman-7.png",
+    avena: "/beautiful-woman-2.png",
+    "black-cumin": "/beautiful-woman-4.png",
+    "exosome-pdrn": "/beautiful-woman-8.png",
+    "hyper-cica": "/hero-skincare.png",
+  };
 
   return (
     <div className="w-full">
@@ -33,23 +46,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="container mx-auto px-6 py-8 md:py-16 z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="animate-in fade-in slide-in-from-left-8 duration-700 text-center md:text-left">
             <span className="text-brand-green font-bold uppercase tracking-widest text-[10px] sm:text-xs mb-3 md:mb-4 block">
-              {t('tagline')}
+              {t("tagline")}
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-neutral-dark dark:text-white mb-4 md:mb-6 leading-tight">
-              {t.rich('title', {
+              {t.rich("title", {
                 br: () => <br />,
-                italic: (chunks) => <span className="italic font-light">{chunks}</span>
+                italic: (chunks) => (
+                  <span className="italic font-light">{chunks}</span>
+                ),
               })}
             </h1>
             <p className="text-base md:text-lg text-neutral-600 dark:text-neutral-400 mb-6 md:mb-8 max-w-md mx-auto md:mx-0 leading-relaxed">
-              {t('subtitle')}
+              {t("subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start">
               <Link
                 href="/products/solar"
                 className="btn-premium brand-gradient-bg text-white hover:opacity-90 shadow-lg shadow-blue-500/20 text-center dark:shadow-white/20"
               >
-                {t('discover')}
+                {t("discover")}
               </Link>
             </div>
           </div>
@@ -85,10 +100,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center">
           <h2 className="text-5xl md:text-8xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl uppercase">
-            {tHome('marketplaceTitle1')}
+            {tHome("marketplaceTitle1")}
           </h2>
           <p className="text-xl md:text-3xl text-white/90 font-light drop-shadow-lg max-w-2xl">
-            {tHome('marketplaceSub1')}
+            {tHome("marketplaceSub1")}
           </p>
         </div>
       </section>
@@ -97,22 +112,43 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-24 container mx-auto px-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-4">
           <div>
-            <h2 className="text-3xl font-bold text-neutral-dark dark:text-white mb-2">{tHome('linesTitle')}</h2>
-            <p className="text-neutral-500 dark:text-neutral-400">{tHome('linesSubtitle')}</p>
+            <h2 className="text-3xl font-bold text-neutral-dark dark:text-white mb-2">
+              {tHome("linesTitle")}
+            </h2>
+            <p className="text-neutral-500 dark:text-neutral-400">
+              {tHome("linesSubtitle")}
+            </p>
           </div>
-          <Link href="/products" className="text-neutral-dark dark:text-neutral-300 font-medium underline underline-offset-4 hover:text-brand-green transition-colors">
-            {tHome('viewCatalog')}
+          <Link
+            href="/products"
+            className="text-neutral-dark dark:text-neutral-300 font-medium underline underline-offset-4 hover:text-brand-green transition-colors"
+          >
+            {tHome("viewCatalog")}
           </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {recommendedLines.map((cat) => (
-            <Link key={cat.id} href={`/products/${cat.slug}`} className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft dark:bg-neutral-800">
-              <div className="absolute inset-0 bg-neutral-dark/0 group-hover:bg-neutral-dark/10 transition-colors z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+            <Link
+              key={cat.id}
+              href={`/products/${cat.slug}`}
+              className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft dark:bg-neutral-800"
+            >
+              <Image
+                src={lineImages[cat.slug] || "/placeholder.jpg"}
+                alt={getLocalized(cat.name, locale)}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-neutral-dark/10 group-hover:bg-neutral-dark/20 transition-colors z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
               <div className="absolute bottom-6 left-6 z-20">
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">{getLocalized(cat.name, locale)}</h3>
-                <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">{tHome('explore')} &rarr;</span>
+                <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">
+                  {getLocalized(cat.name, locale)}
+                </h3>
+                <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {tHome("explore")} &rarr;
+                </span>
               </div>
             </Link>
           ))}
@@ -130,10 +166,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/40 to-black/80" />
         <div className="relative z-10 px-6 md:px-20 max-w-4xl">
           <h2 className="text-4xl md:text-7xl font-bold text-white mb-4 tracking-tight drop-shadow-xl">
-            {tHome('marketplaceTitle3')}
+            {tHome("marketplaceTitle3")}
           </h2>
           <p className="text-lg md:text-2xl text-white/80 font-light drop-shadow-md">
-            {tHome('marketplaceSub3')}
+            {tHome("marketplaceSub3")}
           </p>
         </div>
       </section>
@@ -141,42 +177,71 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       {/* Essence Section */}
       <section className="py-24 container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-neutral-dark dark:text-white mb-4 tracking-tight">{tHome('essenceTitle')}</h2>
+          <h2 className="text-4xl font-bold text-neutral-dark dark:text-white mb-4 tracking-tight">
+            {tHome("essenceTitle")}
+          </h2>
           <div className="w-20 h-1 bg-brand-green mx-auto rounded-full mb-6" />
           <p className="text-neutral-500 dark:text-neutral-400 max-w-2xl mx-auto text-lg leading-relaxed">
-            {tHome('essenceSubtitle')}
+            {tHome("essenceSubtitle")}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
           {/* Main Large Image */}
           <div className="col-span-1 md:col-span-2 row-span-2 relative rounded-3xl overflow-hidden group shadow-lg min-h-[400px]">
-            <Image src="/beautiful-woman-2.png" alt="Lifestyle 1" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <Image
+              src="/beautiful-woman-2.png"
+              alt="Lifestyle 1"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-80" />
             <div className="absolute bottom-8 left-8 right-8 z-20">
-              <h3 className="text-3xl font-bold text-white mb-2">{tHome('scienceTitle')}</h3>
-              <p className="text-white/80">{tHome('scienceSubtitle')}</p>
+              <h3 className="text-3xl font-bold text-white mb-2">
+                {tHome("scienceTitle")}
+              </h3>
+              <p className="text-white/80">{tHome("scienceSubtitle")}</p>
             </div>
           </div>
 
           {/* Top Right 1 */}
           <div className="relative rounded-3xl overflow-hidden group shadow-lg min-h-[250px] md:min-h-0">
-            <Image src="/beautiful-woman-3.png" alt="Lifestyle 2" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <Image
+              src="/beautiful-woman-3.png"
+              alt="Lifestyle 2"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
           </div>
 
           {/* Top Right 2 */}
           <div className="relative rounded-3xl overflow-hidden group shadow-lg min-h-[250px] md:min-h-0">
-            <Image src="/beautiful-woman-4.png" alt="Lifestyle 3" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <Image
+              src="/beautiful-woman-4.png"
+              alt="Lifestyle 3"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
           </div>
 
           {/* Bottom Right 1 */}
           <div className="relative rounded-3xl overflow-hidden group shadow-lg min-h-[250px] md:min-h-0">
-            <Image src="/beautiful-woman-5.png" alt="Lifestyle 4" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <Image
+              src="/beautiful-woman-5.png"
+              alt="Lifestyle 4"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
           </div>
 
           {/* Bottom Right 2 */}
           <div className="relative rounded-3xl overflow-hidden group shadow-lg min-h-[250px] md:min-h-0">
-            <Image src="/beautiful-woman-6.png" alt="Lifestyle 5" fill className="object-cover transition-transform duration-1000 group-hover:scale-105" />
+            <Image
+              src="/beautiful-woman-6.png"
+              alt="Lifestyle 5"
+              fill
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
           </div>
         </div>
       </section>
@@ -195,10 +260,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="absolute inset-0 bg-gradient-to-l from-black/80 via-black/30 to-transparent" />
         <div className="relative z-10 px-6 md:px-20 max-w-3xl text-right">
           <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl">
-            {tHome('marketplaceTitle2')}
+            {tHome("marketplaceTitle2")}
           </h2>
           <p className="text-xl md:text-3xl text-white/90 font-light drop-shadow-lg">
-            {tHome('marketplaceSub2')}
+            {tHome("marketplaceSub2")}
           </p>
         </div>
       </section>
@@ -207,7 +272,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-24 bg-white dark:bg-neutral-900 border-t border-neutral-med dark:border-neutral-800">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-neutral-dark dark:text-white mb-4 tracking-tight">{tHome('recommendedTitle')}</h2>
+            <h2 className="text-4xl font-bold text-neutral-dark dark:text-white mb-4 tracking-tight">
+              {tHome("recommendedTitle")}
+            </h2>
             <div className="w-20 h-1 bg-brand-green mx-auto rounded-full" />
           </div>
 
@@ -215,12 +282,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             {featuredProducts.map((product) => {
               const regionalPrice = getRegionalPrice(product, locale);
               return (
-                <Link key={product.id} href={`/products/${(product as any).category.slug}/${product.slug}`}>
+                <Link
+                  key={product.id}
+                  href={`/products/${(product as any).category.slug}/${product.slug}`}
+                >
                   <ProductCard
                     name={getLocalized(product.name, locale)}
-                    category={getLocalized((product as any).category.name, locale)}
-                    price={formatCurrency(regionalPrice.amount, regionalPrice.currency, locale)}
-                    imageUrl={product.images && product.images.length > 0 ? product.images[0] : '/placeholder.jpg'}
+                    category={getLocalized(
+                      (product as any).category.name,
+                      locale,
+                    )}
+                    price={formatCurrency(
+                      regionalPrice.amount,
+                      regionalPrice.currency,
+                      locale,
+                    )}
+                    imageUrl={
+                      product.images && product.images.length > 0
+                        ? product.images[0]
+                        : "/placeholder.jpg"
+                    }
                   />
                 </Link>
               );
@@ -240,10 +321,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-6xl font-serif italic text-white mb-4 drop-shadow-xl">
-            {tHome('marketplaceTitle4')}
+            {tHome("marketplaceTitle4")}
           </h2>
           <p className="text-lg md:text-xl text-white/80 font-light tracking-widest uppercase">
-            {tHome('marketplaceSub4')}
+            {tHome("marketplaceSub4")}
           </p>
         </div>
       </section>
