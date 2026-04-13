@@ -13,18 +13,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const categories = await getAllCategories();
 
   const recommendedLines = categories.slice(0, 4);
-  const lineImages: Record<string, string> = {
-    // Add the uploaded image file at public/urea-line-banner.jpg
-    urea: "/urea-line-banner.jpg",
-    solar: "/beautiful-woman-1.png",
-    facial: "/beautiful-woman-3.png",
-    corporal: "/beautiful-woman-5.png",
-    "piel-atopica": "/beautiful-woman-6.png",
-    "aloe-vera": "/beautiful-woman-7.png",
-    avena: "/beautiful-woman-2.png",
-    "black-cumin": "/beautiful-woman-4.png",
-    "exosome-pdrn": "/beautiful-woman-8.png",
-    "hyper-cica": "/hero-skincare.png",
+  const lineGradients: Record<string, string> = {
+    urea: "from-blue-500 via-blue-400 to-cyan-300",
+    solar: "from-yellow-400 via-yellow-300 to-orange-300",
+    facial: "from-pink-500 via-rose-400 to-pink-300",
+    corporal: "from-green-500 via-emerald-400 to-teal-300",
+    "piel-atopica": "from-red-500 via-red-400 to-pink-300",
+    "aloe-vera": "from-green-600 via-green-400 to-lime-300",
+    avena: "from-amber-600 via-amber-400 to-yellow-300",
+    "black-cumin": "from-purple-600 via-purple-400 to-indigo-300",
+    "exosome-pdrn": "from-violet-600 via-violet-400 to-purple-300",
+    "hyper-cica": "from-cyan-500 via-blue-400 to-indigo-400",
   };
 
   return (
@@ -134,21 +133,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               href={`/products/${cat.slug}`}
               className="group relative overflow-hidden rounded-2xl aspect-[4/5] bg-neutral-soft dark:bg-neutral-800"
             >
-              <Image
-                src={lineImages[cat.slug] || "/placeholder.jpg"}
-                alt={getLocalized(cat.name, locale)}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${lineGradients[cat.slug] || "from-neutral-400 to-neutral-500"}`}
               />
-              <div className="absolute inset-0 bg-neutral-dark/10 group-hover:bg-neutral-dark/20 transition-colors z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
-              <div className="absolute bottom-6 left-6 z-20">
-                <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">
-                  {getLocalized(cat.name, locale)}
-                </h3>
-                <span className="text-sm text-neutral-200 opacity-0 group-hover:opacity-100 transition-opacity">
-                  {tHome("explore")} &rarr;
-                </span>
+              <div className="absolute inset-0 bg-neutral-dark/20 group-hover:bg-neutral-dark/30 transition-colors z-10" />
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="text-center px-4">
+                  <h3 className="text-2xl font-bold text-white group-hover:text-white transition-colors drop-shadow-lg">
+                    {getLocalized(cat.name, locale)}
+                  </h3>
+                  <span className="text-sm text-white/80 opacity-0 group-hover:opacity-100 transition-opacity block mt-2 drop-shadow-md">
+                    {tHome("explore")} &rarr;
+                  </span>
+                </div>
               </div>
             </Link>
           ))}

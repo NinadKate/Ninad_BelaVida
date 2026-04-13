@@ -67,20 +67,20 @@ export default async function AccountPage({
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">
-      <h1 className="text-3xl font-bold font-heading mb-5 sm:mb-6 text-neutral-dark">
+      <h1 className="text-3xl font-bold font-heading mb-5 sm:mb-6 text-neutral-dark dark:text-white">
         {t("title")}
       </h1>
-      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg border border-neutral-med">
+      <div className="bg-white dark:bg-neutral-900 p-4 sm:p-6 rounded-2xl shadow-lg border border-neutral-med dark:border-neutral-800">
         <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-green/10 rounded-full flex items-center justify-center text-brand-green text-2xl font-bold shrink-0">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-brand-green/10 dark:bg-brand-green/20 rounded-full flex items-center justify-center text-brand-green dark:text-brand-green text-2xl font-bold shrink-0">
               {session.user?.name?.[0] || "U"}
             </div>
             <div className="flex-1 min-w-0">
-              <h2 className="text-lg sm:text-xl font-bold text-neutral-dark truncate">
+              <h2 className="text-lg sm:text-xl font-bold text-neutral-dark dark:text-white truncate">
                 {session.user?.name}
               </h2>
-              <p className="text-neutral-500 break-all">
+              <p className="text-neutral-500 dark:text-neutral-400 break-all">
                 {session.user?.email}
               </p>
             </div>
@@ -93,24 +93,28 @@ export default async function AccountPage({
           </div>
         </div>
 
-        <div className="border-t border-neutral-med pt-6">
-          <h3 className="text-lg font-bold mb-4 text-neutral-dark">
+        <div className="border-t border-neutral-med dark:border-neutral-800 pt-6">
+          <h3 className="text-lg font-bold mb-4 text-neutral-dark dark:text-white">
             {t("orderHistory")}
           </h3>
           {userOrders.length === 0 ? (
-            <p className="text-neutral-500 italic">{t("noOrders")}</p>
+            <p className="text-neutral-500 dark:text-neutral-400 italic">
+              {t("noOrders")}
+            </p>
           ) : (
             <div className="space-y-3">
               {userOrders.map((order) => (
                 <div
                   key={order.id}
-                  className="rounded-xl border border-neutral-med p-4 bg-neutral-50"
+                  className="rounded-xl border border-neutral-med dark:border-neutral-800 p-4 bg-neutral-50 dark:bg-neutral-800"
                 >
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <p className="text-sm text-neutral-500">#{order.id}</p>
+                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                        #{order.id}
+                      </p>
                       <p
-                        className="text-sm text-neutral-600"
+                        className="text-sm text-neutral-600 dark:text-neutral-400"
                         suppressHydrationWarning
                       >
                         {order.created_at
@@ -127,7 +131,7 @@ export default async function AccountPage({
                       >
                         {adminOrdersT("status")}: {order.status}
                       </span>
-                      <p className="text-sm font-bold text-neutral-dark whitespace-nowrap">
+                      <p className="text-sm font-bold text-neutral-dark dark:text-white whitespace-nowrap">
                         {adminOrdersT("total")}:{" "}
                         {formatCurrency(
                           order.total,
