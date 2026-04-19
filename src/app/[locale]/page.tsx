@@ -4,11 +4,17 @@ import ProductCard from "@/components/ui/ProductCard";
 import { getTranslations } from 'next-intl/server';
 import { getFeaturedProducts, getAllCategories } from "@/lib/db/queries";
 import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
+import { redirect } from "next/navigation";
 
-export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'Hero' });
-  const tHome = await getTranslations({ locale, namespace: 'Home' });
+  redirect(`/${locale}/products`);
+  const t = await getTranslations({ locale, namespace: "Hero" });
+  const tHome = await getTranslations({ locale, namespace: "Home" });
   const featuredProducts = await getFeaturedProducts(4);
   const categories = await getAllCategories();
 
