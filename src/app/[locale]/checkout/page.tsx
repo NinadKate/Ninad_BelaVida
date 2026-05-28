@@ -240,7 +240,7 @@ export default function CheckoutPage({ locale }: { locale: string }) {
                   {isSubmitting ? "Processing..." : "Place Order"}
                 </button>
                 <p className="text-xs text-center text-neutral-500 dark:text-neutral-400 mt-2">
-                  This is a demo checkout. No payment is required.
+                  Place your order, our team will contact you to confirm the details and contact you regarding payment.
                 </p>
               </form>
             </div>
