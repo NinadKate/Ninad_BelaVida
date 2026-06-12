@@ -4,6 +4,8 @@ import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 import ProductCard from "@/components/ui/ProductCard";
 import { Link } from "@/i18n/routing";
 
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage({
     params,
 }: {

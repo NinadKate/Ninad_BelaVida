@@ -50,22 +50,22 @@ export async function sendOrderNotification(
         </style>
     </head>
     <body style="margin:0;padding:0;background-color:#f9fafb;">
-    <div class="container" style="font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:24px;background:#f9fafb;border-radius:12px;">
+    <div class="container" style="font-family:Inter,sans-serif;font-size:15px;line-height:1.5;max-width:600px;margin:0 auto;padding:24px;background:#f9fafb;border-radius:12px;">
         <h1 style="color:#111;font-size:22px;margin-bottom:4px;">🛒 New Order #${orderId}</h1>
-        <p style="color:#555;margin-top:0;">A new order has been placed on Bella Vida.</p>
+        <p style="color:#555;margin-top:0;">A new order has been placed on Bela Vida.</p>
 
         <div class="card" style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
             <h2 style="font-size:15px;color:#374151;margin-top:0;">Customer Details</h2>
             <p style="margin:4px 0;"><strong>Name:</strong> ${shippingInfo.fullName}</p>
             <p style="margin:4px 0;"><strong>Email:</strong> ${shippingInfo.email}</p>
-            <p style="margin:4px 0;"><strong>Phone:</strong> ${shippingInfo.phone || '—'}</p>
-            <p style="margin:4px 0;"><strong>Address:</strong> ${shippingInfo.address || '—'}, ${shippingInfo.city || ''}, ${shippingInfo.country || ''}</p>
+            <p style="margin:4px 0;"><strong>Phone:</strong> ${shippingInfo.phone || "—"}</p>
+            <p style="margin:4px 0;"><strong>Address:</strong> ${shippingInfo.address || "—"}, ${shippingInfo.city || ""}, ${shippingInfo.country || ""}</p>
         </div>
 
         <div class="card" style="background:#fff;border-radius:8px;padding:16px;margin:16px 0;border:1px solid #e5e7eb;">
             <h2 style="font-size:15px;color:#374151;margin-top:0;">Order Items</h2>
             <div class="table-container">
-            <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:400px;">
+            <table style="width:100%;border-collapse:collapse;font-size:15px;min-width:400px;">
                 <thead>
                     <tr style="background:#f3f4f6;">
                         <th style="padding:8px 12px;text-align:left;color:#6b7280;">Product</th>
@@ -82,10 +82,12 @@ export async function sendOrderNotification(
             </div>
         </div>
 
-        <div class="card" style="background:#111;border-radius:8px;padding:16px;color:#fff;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:16px;font-weight:600;">Order Total</span>
-            <span style="font-size:20px;font-weight:700;">${currency} ${Number(total).toLocaleString()}</span>
-        </div>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#111;border-radius:8px;color:#fff;border-collapse:separate;border-spacing:0;overflow:hidden;">
+            <tr>
+                <td style="padding:16px;font-size:15px;font-weight:600;">Total</td>
+                <td style="padding:16px;font-size:15px;font-weight:600;text-align:right;">${currency} ${Number(total).toLocaleString()}</td>
+            </tr>
+        </table>
 
         <div style="text-align:center;margin-top:24px;">
             <a href="${process.env.NEXTAUTH_URL}/admin" 
@@ -99,17 +101,18 @@ export async function sendOrderNotification(
     `;
 
     try {
-        const { error } = await resend.emails.send({
-          from: "Bella Vida <onboarding@resend.dev>",
-          to: ["belavidachile@gmail.com"],
-          subject: `🛒 New Order #${orderId} — ${currency} ${Number(total).toLocaleString()}`,
-          html,
-        });
+      const { error } = await resend.emails.send({
+        from: "Bela Vida <onboarding@resend.dev>",
+        to: ["belavidachile@gmail.com"],
+        // to: ["kinesis.it2025@gmail.com"],
+        subject: `🛒 New Order #${orderId} — ${currency} ${Number(total).toLocaleString()}`,
+        html,
+      });
 
-        if (error) {
-            console.error("Resend error:", error);
-        }
+      if (error) {
+        console.error("Resend error:", error);
+      }
     } catch (err) {
-        console.error("Email sending failed:", err);
+      console.error("Email sending failed:", err);
     }
 }

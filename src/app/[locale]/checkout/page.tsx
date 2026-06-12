@@ -81,7 +81,8 @@ export default function CheckoutPage({ locale }: { locale: string }) {
         });
 
         if (!res.ok) {
-          throw new Error("Checkout failed");
+          const errorBody = await res.json().catch(() => null);
+          throw new Error(errorBody?.error || "Checkout failed");
         }
 
         const result = await res.json();

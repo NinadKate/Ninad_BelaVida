@@ -4,6 +4,8 @@ import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 import Image from "next/image";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductPage({
   params,
 }: {
@@ -101,7 +103,7 @@ export default async function ProductPage({
                 id: product.id,
                 slug: product.slug,
                 name: getLocalized(product.name, locale),
-                price: Number(product.price),
+                price: regionalPrice.amount,
                 image: images[0],
               }}
             />

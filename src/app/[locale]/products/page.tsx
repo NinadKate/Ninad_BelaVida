@@ -6,6 +6,8 @@ import ProductCard from "@/components/ui/ProductCard";
 import { Link } from "@/i18n/routing";
 import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'Navbar' });

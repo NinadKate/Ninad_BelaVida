@@ -6,6 +6,8 @@ import { getFeaturedProducts, getAllCategories } from "@/lib/db/queries";
 import { getLocalized, formatCurrency, getRegionalPrice } from "@/lib/utils";
 // import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home({
   params,
 }: {
