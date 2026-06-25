@@ -42,3 +42,7 @@ client_secret*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#Project Passwords
+passwords.md
