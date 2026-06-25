@@ -16,13 +16,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
         country: "Argentina",
         address: ["Av. Gral Las Heras 2464, C1425ASO, C.A.B.A."],
         phone: "+54 911-5507-1150",
-        email: "info@vidabella.org",
+        email: "vidabellaarg@gmail.com",
       },
       {
         country: "Bolivia",
         address: ["Av. América Nro. 960, Cochabamba"],
         phone: "+591 72285512",
-        email: "info@vidabella.org",
+        email: "vidabellaarg@gmail.com",
       },
     ];
 

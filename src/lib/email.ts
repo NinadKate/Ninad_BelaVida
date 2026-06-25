@@ -103,7 +103,7 @@ export async function sendOrderNotification(
     try {
       const { error } = await resend.emails.send({
         from: "Bela Vida <onboarding@resend.dev>",
-        to: ["belavidachile@gmail.com"],
+        to: ["vidabellaarg@gmail.com"],
         // to: ["kinesis.it2025@gmail.com"],
         subject: `🛒 New Order #${orderId} — ${currency} ${Number(total).toLocaleString()}`,
         html,
