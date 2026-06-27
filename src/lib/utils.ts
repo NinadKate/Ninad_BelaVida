@@ -17,14 +17,14 @@ export function getLocalized(obj: LocalizedString | any, locale: string): string
 // --- Currency & Pricing ---
 
 const currencySymbols: Record<string, string> = {
-  CLP: "CLP$",
+  CLP: "CLP",
   PEN: "S/",
   PYG: "₲",
-  UYU: "UY$",
+  UYU: "UYU",
   BOB: "Bs",
-  ARS: "AR$",
+  ARS: "AR",
   INR: "₹",
-  USD: "US$",
+  USD: "USD",
 };
 
 const currencyFractionDigits: Record<string, number> = {
@@ -32,8 +32,14 @@ const currencyFractionDigits: Record<string, number> = {
   PYG: 0,
 };
 
+function parseAmountValue(amount: number | string): number {
+  if (typeof amount === "number") return amount;
+
+  return parseFloat(amount.replace(/,/g, ""));
+}
+
 export function formatCurrency(amount: number | string, currency: string = "CLP", locale: string = "es-CL"): string {
-  const num = typeof amount === "string" ? parseFloat(amount) : amount;
+  const num = parseAmountValue(amount);
   if (isNaN(num)) return "";
 
   const symbol = currencySymbols[currency] || currency;
@@ -41,13 +47,18 @@ export function formatCurrency(amount: number | string, currency: string = "CLP"
 
   try {
     const formattedNumber = new Intl.NumberFormat(locale, {
+      useGrouping: false,
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
     }).format(num);
 
     return `${symbol} ${formattedNumber}`;
   } catch {
-    return `${symbol} ${num.toLocaleString()}`;
+    return `${symbol} ${num.toLocaleString(locale, {
+      useGrouping: false,
+      minimumFractionDigits: fractionDigits,
+      maximumFractionDigits: fractionDigits,
+    })}`;
   }
 }
 
@@ -71,11 +82,13 @@ export function getRegionalPrice(product: any, locale: string): { amount: number
   // Check if there's a locale-specific price in the prices jsonb field
   if (product.prices && typeof product.prices === "object") {
     // Try exact locale key first (e.g. "es-CL")
-    if (product.prices[locale]) return { amount: parseFloat(product.prices[locale]), currency };
+    if (product.prices[locale])
+      return { amount: parseAmountValue(product.prices[locale]), currency };
     // Then try currency key (e.g. "INR", "USD")
-    if (product.prices[currency]) return { amount: parseFloat(product.prices[currency]), currency };
+    if (product.prices[currency])
+      return { amount: parseAmountValue(product.prices[currency]), currency };
   }
 
   // Fall back to base price in the locale's currency
-  return { amount: parseFloat(product.price || "0"), currency };
+  return { amount: parseAmountValue(product.price || "0"), currency };
 }
