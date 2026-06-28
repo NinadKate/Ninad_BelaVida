@@ -9,9 +9,20 @@ export function cn(...inputs: ClassValue[]) {
 
 export type LocalizedString = Record<string, string>;
 
-export function getLocalized(obj: LocalizedString | any, locale: string): string {
+export function getLocalized(
+  obj: LocalizedString | string | number | boolean | null | undefined,
+  locale: string,
+): string {
   if (!obj || typeof obj !== "object") return String(obj || "");
-  return obj[locale] || obj["es-CL"] || obj["en"] || Object.values(obj)[0] || "";
+
+  const localizedObject = obj as LocalizedString;
+  return (
+    localizedObject[locale] ||
+    localizedObject["es-CL"] ||
+    localizedObject["en"] ||
+    Object.values(localizedObject)[0] ||
+    ""
+  );
 }
 
 // --- Currency & Pricing ---
@@ -32,6 +43,22 @@ const currencyFractionDigits: Record<string, number> = {
   PYG: 0,
 };
 
+const FALLBACK_LOCALE = "es-CL";
+
+function getSafeLocale(locale: string): string {
+  const normalizedLocale = locale || FALLBACK_LOCALE;
+  const exactMatch = Intl.NumberFormat.supportedLocalesOf([
+    normalizedLocale,
+  ])[0];
+  if (exactMatch) return exactMatch;
+
+  const baseLocale = normalizedLocale.split("-")[0];
+  const baseMatch = Intl.NumberFormat.supportedLocalesOf([baseLocale])[0];
+  if (baseMatch) return baseMatch;
+
+  return FALLBACK_LOCALE;
+}
+
 function parseAmountValue(amount: number | string): number {
   if (typeof amount === "number") return amount;
 
@@ -44,9 +71,10 @@ export function formatCurrency(amount: number | string, currency: string = "CLP"
 
   const symbol = currencySymbols[currency] || currency;
   const fractionDigits = currencyFractionDigits[currency] ?? 2;
+  const safeLocale = getSafeLocale(locale);
 
   try {
-    const formattedNumber = new Intl.NumberFormat(locale, {
+    const formattedNumber = new Intl.NumberFormat(safeLocale, {
       useGrouping: false,
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
@@ -54,7 +82,7 @@ export function formatCurrency(amount: number | string, currency: string = "CLP"
 
     return `${symbol} ${formattedNumber}`;
   } catch {
-    return `${symbol} ${num.toLocaleString(locale, {
+    return `${symbol} ${num.toLocaleString(safeLocale, {
       useGrouping: false,
       minimumFractionDigits: fractionDigits,
       maximumFractionDigits: fractionDigits,
@@ -76,7 +104,15 @@ export function getCurrencyForLocale(locale: string): string {
   return currencyMap[locale] || "CLP";
 }
 
-export function getRegionalPrice(product: any, locale: string): { amount: number; currency: string } {
+export type RegionalPriceSource = {
+  price?: string | number;
+  prices?: Record<string, string | number> | null;
+};
+
+export function getRegionalPrice(
+  product: RegionalPriceSource,
+  locale: string,
+): { amount: number; currency: string } {
   const currency = getCurrencyForLocale(locale);
 
   // Check if there's a locale-specific price in the prices jsonb field

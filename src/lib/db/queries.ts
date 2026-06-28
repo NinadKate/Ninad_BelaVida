@@ -33,12 +33,19 @@ export async function getAllCategories() {
 }
 
 export async function getFeaturedProducts(limit = 4) {
-    return await db.query.products.findMany({
-        where: eq(products.active, true),
-        orderBy: [desc(products.created_at)],
-        limit: limit,
-        with: {
-            category: true
-        }
-    });
+    const featuredProducts = await db
+      .select({
+        product: products,
+        category: categories,
+      })
+      .from(products)
+      .leftJoin(categories, eq(products.categoryId, categories.id))
+      .where(eq(products.active, true))
+      .orderBy(desc(products.created_at))
+      .limit(limit);
+
+    return featuredProducts.map(({ product, category }) => ({
+      ...product,
+      category,
+    }));
 }

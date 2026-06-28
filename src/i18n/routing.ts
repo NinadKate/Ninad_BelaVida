@@ -8,6 +8,9 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: "es-CL",
 
+  // Keep the app on the configured default locale unless the user explicitly switches.
+  localeDetection: false,
+
   // Optional: Locale prefix strategy
   localePrefix: "as-needed",
 });
