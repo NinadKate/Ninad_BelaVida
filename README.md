@@ -31,6 +31,5 @@ The platform supports 7 locales:
 - `es-CL` (Chile)
 - `es-PE` (Peru)
 - `es-PY` (Paraguay)
-- `es-UY` (Uruguay)
 - `es-BO` (Bolivia)
 - `es-AR` (Argentina)
