@@ -10,6 +10,7 @@ import {
   primaryKey,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+import type { LocalizedString } from "@/lib/utils";
 // import type { AdapterAccountType } from "next-auth/adapters";
 
 // --- Auth Tables (NextAuth.js Standard) ---
@@ -75,7 +76,7 @@ export const verificationTokens = pgTable(
 export const categories = pgTable("category", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull().unique(),
-  name: jsonb("name").notNull(), // { en: "", es: "", ... }
+  name: jsonb("name").$type<LocalizedString>().notNull(), // { en: "", es: "", ... }
   image_url: text("image_url"),
   active: boolean("active").default(true),
 });
@@ -86,9 +87,9 @@ export const products = pgTable("product", {
   slug: text("slug").notNull().unique(),
   sku: text("sku").unique(),
   price: numeric("price", { precision: 10, scale: 2 }).notNull(),
-  prices: jsonb("prices").notNull().default({}),
-  name: jsonb("name").notNull(), // { en: "", es: "", ... }
-  description: jsonb("description").notNull(), // { en: "", es: "", ... }
+  prices: jsonb("prices").$type<Record<string, string | number>>().notNull().default({}),
+  name: jsonb("name").$type<LocalizedString>().notNull(), // { en: "", es: "", ... }
+  description: jsonb("description").$type<LocalizedString>().notNull(), // { en: "", es: "", ... }
   images: text("images").array(), // Array of R2 URLs
   stock: integer("stock").default(0),
   active: boolean("active").default(true),
